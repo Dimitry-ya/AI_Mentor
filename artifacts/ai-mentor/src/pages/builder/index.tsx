@@ -303,9 +303,6 @@ export default function BuilderPage() {
           <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setLocation(`/preview/${id}`)}>
             <Eye className="w-4 h-4" /> Предпросмотр
           </Button>
-          <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setLocation(`/sandbox/${id}`)}>
-            <Play className="w-4 h-4" /> Сэндбокс
-          </Button>
           <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setCheckOpen(true)}>
             <ShieldCheck className="w-4 h-4" />
             Проверить
@@ -407,26 +404,16 @@ export default function BuilderPage() {
             </div>
           </div>
           <ScenarioFooter
-            onCancel={() => setLocation("/catalog")}
             onSave={() => toast.success("Изменения сохранены")}
             onBack={stepIndex > 0 ? goPrevStep : undefined}
             primary={
-              stepIndex === steps.length - 1
-                ? { label: "Опубликовать", onClick: handlePublish }
-                : { label: "Далее", onClick: goNextStep }
+              report.errors.length > 0
+                ? { label: "Исправить ошибки", onClick: () => setCheckOpen(true) }
+                : stepIndex === steps.length - 1
+                  ? { label: "Опубликовать", onClick: handlePublish }
+                  : { label: "Далее", onClick: goNextStep }
             }
             saveLabel="Сохранить черновик"
-            hint={
-              report.errors.length > 0 ? (
-                <span className="inline-flex items-center gap-1 text-error">
-                  <AlertTriangle className="w-3.5 h-3.5" /> ошибок: {report.errors.length}
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1 text-[hsl(var(--success))]">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Готово к публикации
-                </span>
-              )
-            }
           />
         </div>
 
