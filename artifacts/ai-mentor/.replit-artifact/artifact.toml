@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "AI-Ментор"
+version = "1.0.0"
+id = "artifacts/ai-mentor"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20774
+
+[services.development]
+run = "pnpm --filter @workspace/ai-mentor run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ai-mentor", "run", "build" ]
+publicDir = "artifacts/ai-mentor/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20774"
+BASE_PATH = "/"
