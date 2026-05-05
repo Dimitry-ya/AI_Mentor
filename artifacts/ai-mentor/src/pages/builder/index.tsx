@@ -6,7 +6,6 @@ import {
   Play,
   ShieldCheck,
   AlertTriangle,
-  CheckCircle2,
   X,
   Save,
   Send,
@@ -346,9 +345,6 @@ export default function BuilderPage() {
                   {s.label}
                   {status === "errors" && (
                     <span className="am-dot am-dot-error" title="Ошибки в блоке" />
-                  )}
-                  {status === "ok" && active && (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[hsl(var(--success))]" />
                   )}
                 </button>
                 {i < steps.length - 1 && (
