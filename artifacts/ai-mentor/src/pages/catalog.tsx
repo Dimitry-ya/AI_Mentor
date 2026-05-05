@@ -137,14 +137,14 @@ export default function Catalog() {
         {filtered.length === 0 ? (
           <EmptyState onCreate={() => setWizardOpen(true)} />
         ) : (
-          <div className="space-y-10">
+          <div className="space-y-12">
             {groups.map((g) =>
               g.items.length === 0 ? null : (
                 <section key={g.status}>
-                  <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-border/50">
+                  <div className="flex items-center gap-2 mb-3">
                     <span className={`am-dot ${STATUS_DOT[g.status]}`} />
-                    <h2 className="text-[16px] font-semibold tracking-tight">{g.status}</h2>
-                    <span className="text-[13px] font-medium text-[hsl(var(--ink-muted))]">
+                    <h2 className="text-[18px] font-bold tracking-tight text-[hsl(var(--ink))]">{g.status}</h2>
+                    <span className="text-[13px] text-[hsl(var(--ink-muted))]">
                       {g.items.length}
                     </span>
                   </div>
@@ -283,15 +283,15 @@ function TrainingCard({
       <div className="px-4 pt-4 pb-1 flex flex-col flex-1 min-h-0">
         <button
           onClick={onOpen}
-          className="font-semibold text-[15px] leading-snug text-left line-clamp-2 hover:text-primary transition-colors mb-1.5"
+          className="font-bold text-[15.5px] leading-snug text-left line-clamp-2 hover:text-primary transition-colors mb-1"
         >
           {t.name}
         </button>
-        <div className="text-[12.5px] text-[hsl(var(--ink-muted))] truncate">
+        <div className="text-[12px] text-[hsl(var(--ink-muted))] truncate">
           {t.factory} · {t.direction} · {t.duration}
         </div>
         <div className="mt-3 pt-2.5 pb-1 border-t border-border/60 flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-[12.5px] text-[hsl(var(--ink-muted))]">
+          <div className="flex items-center gap-1.5 text-[12px] text-[hsl(var(--ink-muted))]">
             <span className={`am-dot ${STATUS_DOT[t.status]}`} />
             <span>{t.status}</span>
             <span className="mx-0.5 opacity-40">·</span>
