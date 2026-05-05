@@ -33,8 +33,9 @@ See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and pa
 Russian-language internal enterprise web app for a bank to author, validate,
 publish, and run training units (Тренажёры and Экзамены).
 
-- **Stack**: React 18 + TypeScript + Vite + Tailwind + shadcn/ui + lucide-react
-  + wouter + sonner + recharts + react-hook-form
+- **Stack**: React 19 + TypeScript + Vite 7 + Tailwind v4 + shadcn/Radix (select,
+  dropdown, dialog, alert-dialog) + @alfalab/core-components (button, input,
+  textarea, config) + lucide-react + wouter + sonner + recharts
 - **Persistence**: localStorage only (key `ai-mentor:v1`); no backend
 - **Routing**: `/catalog`, `/analytics`, `/admin/access` (in `AppLayout` with
   248px nav rail); `/builder/:id`, `/preview/:id`, `/sandbox/:id`,
@@ -58,5 +59,18 @@ publish, and run training units (Тренажёры and Экзамены).
   (KPI cards, BarChart + PieChart, table with CSV export), `access.tsx`
   (employee management with bulk role/status/delete, protected owner row)
 
-To verify changes: `pnpm --filter ai-mentor run typecheck`, then restart the
-`artifacts/ai-mentor: web` workflow.
+### Core DS (alfalab) integration notes
+- `button.tsx` wraps `@alfalab/core-components-button`: `default`→`accent`,
+  `outline`→`outlined`, `secondary`→`secondary`, `ghost`→`transparent`, `link`→`text`
+- `input.tsx` wraps `@alfalab/core-components-input`: strips `h-*`/`bg-*`/`pl-*`
+  from className; bridges HTMLInput.onChange to alfalab's ChangeEvent; `pl-*` goes
+  to `inputClassName`; `block=true` always. Pass `size={32|40|48}` for height.
+- `textarea.tsx` wraps `@alfalab/core-components-textarea`: same pattern.
+- Alfalab accent color overridden in `src/index.css` to match brand red `#C62828`
+  via `--color-light-accent-primary`.
+- Select / Dropdown / Dialog: still Radix/shadcn; `SelectTrigger` uses
+  `focus:border-primary` (no red ring).
+- Filter-area inputs use `size={40}` prop; compact inline inputs use `size={32}`.
+
+To verify changes: `pnpm --filter @workspace/ai-mentor run typecheck`, then
+restart the `artifacts/ai-mentor: web` workflow.

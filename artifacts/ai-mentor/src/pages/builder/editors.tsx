@@ -526,7 +526,7 @@ export function CaseEditor({
                         })
                       }
                       placeholder="—"
-                      className="h-8 text-[13px]"
+                      size={32}
                     />
                   </div>
                 ))}
@@ -743,7 +743,7 @@ export function QuestionEditor({
                     })
                   }
                 >
-                  <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">Не привязана</SelectItem>
                     {qs.criteria.map((c, idx) => (

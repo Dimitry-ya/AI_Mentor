@@ -146,7 +146,7 @@ export default function Analytics() {
               Сводка по прохождению обучений сотрудниками банка.
             </p>
           </div>
-          <Button variant="outline" className="gap-2 h-10" onClick={exportCsv}>
+          <Button variant="outline" className="gap-2" onClick={exportCsv}>
             <Download className="w-4 h-4" /> Выгрузить CSV
           </Button>
         </div>
@@ -158,7 +158,8 @@ export default function Analytics() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Поиск по сотруднику или обучению"
-              className="pl-9 h-10 bg-white"
+              className="pl-9"
+              size={40}
             />
           </div>
           <Select value={trainingFilter} onValueChange={setTrainingFilter}>

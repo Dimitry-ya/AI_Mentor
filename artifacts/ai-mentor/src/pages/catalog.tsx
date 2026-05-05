@@ -94,7 +94,7 @@ export default function Catalog() {
               Тренажёры и экзамены, доступные на платформе AI-Ментор.
             </p>
           </div>
-          <Button onClick={() => setWizardOpen(true)} className="gap-2 h-10">
+          <Button onClick={() => setWizardOpen(true)} className="gap-2">
             <Plus className="w-4 h-4" />
             Создать обучение
           </Button>
@@ -107,7 +107,8 @@ export default function Catalog() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Поиск по названию или тематике"
-              className="pl-9 h-10 bg-white"
+              className="pl-9"
+              size={40}
             />
           </div>
           <Select value={typeFilter} onValueChange={setTypeFilter}>

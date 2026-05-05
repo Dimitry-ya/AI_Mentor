@@ -112,7 +112,7 @@ export default function AccessPage() {
               Сотрудники, у которых есть доступ к платформе AI-Ментор.
             </p>
           </div>
-          <Button className="gap-2 h-10" onClick={() => setAddOpen(true)}>
+          <Button className="gap-2" onClick={() => setAddOpen(true)}>
             <Plus className="w-4 h-4" /> Добавить сотрудника
           </Button>
         </div>
@@ -132,7 +132,8 @@ export default function AccessPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Поиск по имени или табельному"
-                className="pl-9 h-9 bg-white"
+                className="pl-9"
+                size={40}
               />
             </div>
             <Select value={roleFilter} onValueChange={setRoleFilter}>

@@ -125,6 +125,16 @@
   --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
 }
 
+/* Override alfalab Core DS accent tokens to match app brand red */
+:root {
+  --color-light-accent-primary: hsl(0 66% 47%);
+  --color-light-accent-primary-hover: hsl(0 66% 40%);
+  --color-light-accent-primary-press: hsl(0 66% 35%);
+  --color-light-accent-primary-inverted: hsl(0 0% 100%);
+  --color-light-text-link: hsl(0 66% 47%);
+  --color-light-link-primary: hsl(0 66% 47%);
+}
+
 @layer base {
   * {
     @apply border-border;
