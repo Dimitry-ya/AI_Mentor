@@ -322,7 +322,6 @@ export default function BuilderPage() {
           </Button>
         </div>
       </div>
-
       {/* FLOW STEPPER */}
       <div className="h-[52px] shrink-0 bg-[hsl(var(--surface))] border-b border-border flex items-center px-4">
         <div className="max-w-[1200px] mx-auto flex items-center gap-1 w-full">
@@ -361,7 +360,6 @@ export default function BuilderPage() {
           })}
         </div>
       </div>
-
       {/* MAIN GRID */}
       <div className="flex-1 grid grid-cols-[280px_1fr_320px] overflow-hidden">
         {/* LEFT TREE */}
@@ -391,7 +389,7 @@ export default function BuilderPage() {
 
         {/* CENTER EDITOR */}
         <div className="flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto bg-[#ffffff]">
             <div className="max-w-[920px] mx-auto px-6 pt-8 pb-10">
               <SelectedEditor
                 training={training}
@@ -429,7 +427,6 @@ export default function BuilderPage() {
           />
         </aside>
       </div>
-
       {/* CHECK DRAWER */}
       <Sheet open={checkOpen} onOpenChange={setCheckOpen}>
         <SheetContent side="right" className="w-[420px] p-0 flex flex-col">
