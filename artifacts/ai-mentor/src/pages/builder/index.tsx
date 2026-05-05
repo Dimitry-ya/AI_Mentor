@@ -167,6 +167,14 @@ export default function BuilderPage() {
     const prev = steps[stepIndex - 1];
     if (prev) goToStep(prev.key);
   };
+  const handleNext = () => {
+    if (stepStatus(currentStepKey) === "errors") {
+      setCheckOpen(true);
+      toast.error("Исправьте ошибки перед переходом к следующему шагу");
+      return;
+    }
+    goNextStep();
+  };
 
   /* Mutation actions for tree */
   const addTheory = () => {
@@ -404,16 +412,12 @@ export default function BuilderPage() {
             </div>
           </div>
           <ScenarioFooter
-            onSave={() => toast.success("Изменения сохранены")}
             onBack={stepIndex > 0 ? goPrevStep : undefined}
             primary={
-              report.errors.length > 0
-                ? { label: "Исправить ошибки", onClick: () => setCheckOpen(true) }
-                : stepIndex === steps.length - 1
-                  ? { label: "Опубликовать", onClick: handlePublish }
-                  : { label: "Далее", onClick: goNextStep }
+              stepIndex === steps.length - 1
+                ? { label: "Опубликовать", onClick: handlePublish }
+                : { label: "Далее", onClick: handleNext }
             }
-            saveLabel="Сохранить черновик"
           />
         </div>
 

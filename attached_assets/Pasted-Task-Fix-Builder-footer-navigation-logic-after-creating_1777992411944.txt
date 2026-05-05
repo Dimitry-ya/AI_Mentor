@@ -1,0 +1,247 @@
+Task: Fix Builder footer navigation logic after creating a trainer or exam.
+
+Project path:
+artifacts/ai-mentor
+
+Current problem:
+When the user creates a new trainer or exam and enters the Builder editor, the bottom footer shows:
+- "Сохранить черновик"
+- "Исправить ошибки"
+
+This is wrong for the creation/editing flow.
+
+Required UX:
+The Builder is a step-by-step creation flow:
+1. Онбординг
+2. Теория
+3. Практика
+4. Завершение
+
+In this flow the bottom footer must help the user move through steps, not save drafts or jump to errors.
+
+Required footer behavior:
+- Replace "Сохранить черновик" with "Назад"
+- Replace "Исправить ошибки" with "Далее"
+- "Назад" moves to the previous step
+- "Далее" moves to the next step
+- Do not show "Сохранить черновик" in this creation flow
+- Do not show "Исправить ошибки" as the primary CTA in this creation flow
+
+Important:
+Do not rewrite the app.
+Do not change routes.
+Do not change data model.
+Do not change localStorage key ai-mentor:v1.
+Do not remove autosave/local persistence if it already exists.
+Only remove the visible "Сохранить черновик" action from this flow.
+Do not remove validation logic.
+Do not remove error indicators.
+Do not remove the problems panel.
+
+==================================================
+EXPECTED UX LOGIC
+==================================================
+
+1. On step 1: "Онбординг"
+Footer should show:
+- "Назад" as secondary, disabled or returning to previous screen/catalog depending on existing navigation model
+- "Далее" as primary
+
+Clicking "Далее":
+- validates the current step if validation exists
+- if valid, moves to step 2 "Теория"
+- if invalid, stays on current step and shows validation feedback
+- button label remains "Далее", not "Исправить ошибки"
+
+2. On step 2: "Теория"
+Footer should show:
+- "Назад"
+- "Далее"
+
+Clicking:
+- "Назад" moves to "Онбординг"
+- "Далее" moves to "Практика" if valid, or shows validation feedback if invalid
+
+3. On step 3: "Практика"
+Footer should show:
+- "Назад"
+- "Далее"
+
+Clicking:
+- "Назад" moves to "Теория"
+- "Далее" moves to "Завершение" if valid, or shows validation feedback if invalid
+
+4. On step 4: "Завершение"
+Footer should show:
+- "Назад"
+- "Опубликовать" or the existing final primary action if already implemented
+
+Do not show "Далее" after the final step.
+
+==================================================
+VALIDATION BEHAVIOR
+==================================================
+
+Important:
+The app may still have errors. That is okay.
+
+But the primary footer action should not be called "Исправить ошибки".
+
+Correct behavior:
+- User clicks "Далее"
+- App validates current step
+- If there are errors, stay on the current step
+- Show errors in the existing problems panel / field validation
+- Optionally scroll or focus the first error if this behavior already exists or is easy to implement
+- Do not rename the CTA to "Исправить ошибки"
+
+Reason:
+"Далее" is the expected step navigation action.
+"Исправить ошибки" is a diagnostic action, not the main progression action.
+
+==================================================
+BUTTON HIERARCHY
+==================================================
+
+Use shared Button component / Core DS-compatible button style.
+
+Footer buttons:
+- "Назад" = secondary
+- "Далее" = primary
+- "Опубликовать" = primary on final step
+
+Do not use accent for normal CTA.
+Do not use destructive style.
+Do not use custom Tailwind visual styling on these buttons.
+
+Button alignment:
+- same height
+- icons, if present, must be vertically centered
+- text must be vertically centered
+- consistent spacing between buttons
+- footer must stay stable across steps
+
+==================================================
+FILES TO INSPECT
+==================================================
+
+Search for:
+- "Сохранить черновик"
+- "Исправить ошибки"
+- "Далее"
+- "Назад"
+- "Онбординг"
+- "Теория"
+- "Практика"
+- "Завершение"
+
+Likely areas:
+- Builder page
+- Builder footer/action bar
+- stepper/navigation state
+- validation/progress logic
+- shared Button component only if needed
+
+Before editing, report:
+1. Exact file where "Сохранить черновик" is rendered
+2. Exact file where "Исправить ошибки" is rendered
+3. Existing click handlers for both buttons
+4. Existing step state / current step logic
+5. Existing validation behavior
+
+Then implement the fix.
+
+==================================================
+DO NOT
+==================================================
+
+Do not:
+1. Remove validation.
+2. Remove error count dots.
+3. Remove right-side problems panel.
+4. Remove autosave/local persistence if it exists.
+5. Add a new save draft flow.
+6. Change training/exam data structure.
+7. Change labels outside this footer flow.
+8. Fix unrelated UI issues in this task.
+9. Redesign the page.
+10. Change catalog behavior unless "Назад" needs to return there and this is already part of navigation.
+
+==================================================
+ACCEPTANCE CRITERIA
+==================================================
+
+1. After creating a trainer or exam, the Builder footer shows:
+   - "Назад"
+   - "Далее"
+
+2. "Сохранить черновик" is not shown in this creation/editing footer.
+
+3. "Исправить ошибки" is not shown as the main CTA in this creation/editing footer.
+
+4. "Далее" moves the user to the next step when the current step is valid.
+
+5. If the current step has validation errors:
+   - user remains on current step
+   - errors are shown through existing validation UI
+   - CTA still remains "Далее"
+
+6. "Назад" moves to the previous step.
+
+7. On the final step, primary action becomes "Опубликовать" or the existing final publish action.
+
+8. Button hierarchy is correct:
+   - "Назад" secondary
+   - "Далее" primary
+   - "Опубликовать" primary
+
+9. No business logic or data model changed.
+
+10. Typecheck and build pass.
+
+==================================================
+VALIDATION COMMANDS
+==================================================
+
+Run:
+
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+==================================================
+VISUAL QA
+==================================================
+
+Check manually:
+
+1. Create a new trainer.
+2. Open Builder step 1 "Онбординг".
+3. Confirm footer shows "Назад" and "Далее".
+4. Click "Далее".
+5. Confirm it moves to "Теория" if valid.
+6. If invalid, confirm it stays on "Онбординг" and shows validation.
+7. Go through "Теория" → "Практика" → "Завершение".
+8. Confirm final step shows publish action, not "Далее".
+9. Confirm "Сохранить черновик" is gone from this flow.
+10. Confirm "Исправить ошибки" is gone from this footer flow.
+11. Repeat for creating an exam if exam uses the same builder flow.
+
+==================================================
+FINAL REPORT
+==================================================
+
+Report:
+1. Which files were changed.
+2. Where the old "Сохранить черновик" button was removed.
+3. Where the old "Исправить ошибки" button was replaced.
+4. How "Назад" works now.
+5. How "Далее" works now.
+6. How validation behaves when the user clicks "Далее".
+7. What happens on the final step.
+8. Whether trainer and exam flows both work.
+9. Whether typecheck passed.
+10. Whether build passed.
+11. Whether dev server starts.
+
+Stop after this footer navigation logic fix.
