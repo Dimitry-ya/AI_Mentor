@@ -1,0 +1,406 @@
+We need a global visual stabilization pass for AI Mentor.
+
+The previous button prompt fixed only one visible place, but the same issues exist across the whole app.
+
+Main goals:
+1. Update ALL buttons across the app to the correct Core DS Button hierarchy.
+2. Replace gray working-area/page backgrounds with proper white surfaces where appropriate.
+3. Stabilize typography to match Core DS style across pages.
+4. Do this systemically through shared wrappers/tokens/components, not one-off fixes for a single screenshot.
+
+Project:
+AI Mentor
+
+Main app path:
+artifacts/ai-mentor
+
+Core DS source of truth:
+https://github.com/core-ds/core-components
+https://core-ds.github.io/core-components/master/
+
+Important:
+Core DS means actual @alfalab/core-components packages.
+Do not imitate Core DS with local CSS.
+Local CSS can be used only for layout and composition, not for replacing Core DS component visual states.
+
+Do not:
+1. Do not rewrite the app from scratch.
+2. Do not change routes.
+3. Do not change business logic.
+4. Do not change localStorage key ai-mentor:v1.
+5. Do not remove seed data.
+6. Do not touch backend/lib.
+7. Do not change labels/text content unless required for accessibility.
+8. Do not install broad dependency sets.
+9. Do not add random hex colors, shadows, radii or font sizes.
+10. Do not fix only the currently visible screenshot.
+
+Important diagnosis:
+The previous fix worked only for the specific buttons shown in the screenshot.
+Now inspect all app screens and shared wrappers so the same button/surface/typography rules apply globally.
+
+==================================================
+PHASE 1 — FULL AUDIT BEFORE CHANGING
+==================================================
+
+Search the whole frontend:
+
+1. Button usage:
+Run searches for:
+- <Button
+- buttonVariants
+- variant="accent"
+- variant="primary"
+- variant="secondary"
+- variant="outline"
+- variant="destructive"
+- variant="ghost"
+- <button
+- role="button"
+
+2. Background/surface usage:
+Search for:
+- bg-gray
+- bg-slate
+- bg-neutral
+- bg-zinc
+- bg-muted
+- bg-secondary
+- background:
+- --background
+- --muted
+- page background classes
+- editor background classes
+- card background classes
+- panel background classes
+
+3. Typography usage:
+Search for:
+- font-family
+- font-size
+- line-height
+- letter-spacing
+- font-weight
+- text-
+- leading-
+- tracking-
+- font-
+- className with text size/color/weight
+- global body/html typography in index.css
+
+4. Shared files to inspect:
+- artifacts/ai-mentor/src/components/ui/button.tsx
+- artifacts/ai-mentor/src/components/ui/input.tsx
+- artifacts/ai-mentor/src/components/ui/select.tsx
+- artifacts/ai-mentor/src/components/ui/textarea.tsx
+- artifacts/ai-mentor/src/components/ui/field.tsx
+- artifacts/ai-mentor/src/index.css
+- artifacts/ai-mentor/src/main.tsx
+- all layout/page wrapper components
+- Builder page/layout components
+- Catalog page components
+- Preview/Sandbox/Learner pages
+- Analytics/Admin pages if present
+
+Before changing code, produce a short audit summary:
+1. Where button variants are used.
+2. Where accent is still used.
+3. Where native buttons exist.
+4. Where gray backgrounds define main working areas.
+5. Where typography is overridden locally.
+6. Which shared wrappers should be fixed first.
+
+Do not start coding until the audit is complete.
+
+==================================================
+PHASE 2 — FIX ALL BUTTONS SYSTEMICALLY
+==================================================
+
+Goal:
+All real buttons across the app must use a consistent Core DS Button hierarchy.
+
+Shared wrapper:
+Inspect and fix:
+artifacts/ai-mentor/src/components/ui/button.tsx
+
+Requirements:
+1. The shared Button wrapper must render @alfalab/core-components-button.
+2. Old imports must keep working.
+3. Old buttonVariants export may remain only for backward compatibility.
+4. Old CVA/Tailwind visual classes must NOT override Core DS Button.
+5. Do not pass old visual classes directly into AlfalabButton if they break Core DS.
+6. Keep safe layout-only className only if needed.
+7. Remove or ignore visual Tailwind overrides on real buttons:
+   - bg-*
+   - text-* if it changes button color/size
+   - border-*
+   - rounded-*
+   - h-*
+   - px-*
+   - py-*
+   - shadow
+   - ring
+   - focus:ring
+
+Variant mapping:
+- primary -> Core DS primary/main CTA style
+- accent -> map to primary only for backward compatibility
+- secondary -> Core DS secondary style
+- outline -> Core DS secondary/outlined style if supported
+- ghost -> Core DS tertiary/low-emphasis style
+- destructive -> destructive/danger only for delete/remove actions
+
+Important:
+Do not use accent semantically in app screens anymore.
+Replace variant="accent" with variant="primary" for normal main actions.
+
+Replace accent with primary for actions like:
+- Далее
+- Сохранить
+- Создать
+- Опубликовать
+- Продолжить
+- Запустить
+- Подтвердить
+- Применить
+- main forward/proceed/confirm actions
+
+Keep destructive only for:
+- Удалить
+- Delete
+- Remove
+- destructive confirmation actions
+
+Button alignment:
+For all buttons:
+1. Equal height for buttons in the same group.
+2. Icons vertically centered.
+3. Text vertically centered.
+4. Consistent icon/text gap.
+5. Compact badge/counter alignment.
+6. Button counters must not stretch button height.
+7. Disabled buttons must remain readable and clearly disabled.
+8. Main CTA must be visually stronger than secondary actions.
+
+Specific areas to check:
+1. Builder top action bar:
+   - Предпросмотр
+   - Проверить 6
+   - Опубликовать
+
+2. Creation wizard footer:
+   - Назад
+   - Далее
+
+3. Catalog actions:
+   - create/open/card actions
+
+4. Builder right inspector actions.
+
+5. Preview/Sandbox/Learner actions.
+
+6. Analytics/Admin actions if present.
+
+Acceptance for buttons:
+1. No normal CTA uses accent.
+2. Primary actions use primary.
+3. Destructive style is only used for delete/remove.
+4. Buttons do not look like custom gray/black local buttons.
+5. Buttons use Core DS Button visual style.
+6. Icon + text + badge alignment is stable.
+
+==================================================
+PHASE 3 — FIX PAGE AND CONTAINER BACKGROUNDS
+==================================================
+
+Problem:
+Inside Builder and other pages, large working areas are gray, and editable fields/containers blend with the page. This makes the UI low contrast and visually flat.
+
+Goal:
+Use white surfaces for main content areas where users edit/read primary content.
+Keep gray only for page shell/background separation where appropriate.
+
+Rules:
+1. Main editor/work area should not be a flat gray block.
+2. Editable content areas should sit on white or clearly distinct surfaces.
+3. Cards/panels should have a clear white surface.
+4. Page shell can be light neutral if needed, but content containers must be readable.
+5. Do not make editable fields look disabled.
+6. Do not use gray field background for editable controls unless Core DS does it by design.
+7. If a field is disabled/read-only, it must clearly communicate that state.
+8. Avoid gray-on-gray layering.
+
+Screens to fix:
+1. Builder main editor area.
+2. Onboarding page inside Builder.
+3. Theory editor.
+4. Practice editor.
+5. Question editor.
+6. Client card / "Карточка клиента".
+7. Right inspector panels.
+8. Catalog cards if they blend into page.
+9. Any modal content area that is overly gray.
+
+Client card:
+The "Карточка клиента" block must have:
+- clear white background;
+- visible container boundary;
+- calm border/radius using DS-compatible tokens;
+- readable section grouping;
+- no flat gray page-like background.
+
+Surface hierarchy:
+Define visually:
+- app/page background;
+- main content surface;
+- card surface;
+- panel surface;
+- overlay/modal surface;
+- selected/active state.
+
+Do not use random colors.
+Use Core DS tokens or existing DS-compatible semantic variables.
+
+Acceptance for surfaces:
+1. Main working areas are readable.
+2. Content cards are white and distinct.
+3. Editable controls do not look disabled.
+4. Gray backgrounds do not collapse into one flat layer.
+5. Client card has a proper white surface.
+
+==================================================
+PHASE 4 — STABILIZE TYPOGRAPHY / FONT STYLE
+==================================================
+
+Goal:
+Make typography match Core DS style across the app.
+
+Important:
+Do not guess the font name.
+Inspect installed Core DS packages and CSS variables first.
+
+Keep:
+import '@alfalab/core-components-vars/index.css';
+
+Do not remove Core DS vars import.
+
+Tasks:
+1. Set a consistent global font baseline for:
+   - html
+   - body
+   - root app container
+
+2. Use Core DS typography variables/tokens where available.
+
+3. Remove or reduce local typography overrides that conflict with Core DS:
+   - random font-family;
+   - arbitrary font-size;
+   - arbitrary line-height;
+   - arbitrary font-weight;
+   - arbitrary letter-spacing;
+   - excessive Tailwind text-* classes;
+   - inconsistent headings and labels.
+
+4. Do not override typography inside Core DS Button/Input/Select/Textarea unless absolutely required.
+
+5. Normalize typography hierarchy:
+Catalog:
+- page title;
+- subtitle;
+- search placeholder;
+- select text;
+- card title;
+- card meta;
+- status labels.
+
+Builder:
+- top stepper text;
+- left sidebar/tree text;
+- editor title;
+- field labels;
+- input/select/textarea text;
+- helper text;
+- right inspector headings;
+- problem list text;
+- action button text.
+
+Modals/wizards:
+- modal title;
+- step meta;
+- card title;
+- card description;
+- footer button text.
+
+Typography rules:
+1. Page titles must be clear and strong.
+2. Section titles must not compete with page title.
+3. Labels must be readable but not oversized.
+4. Helper text must be secondary.
+5. Sidebar text must be compact and readable.
+6. Button text must come from Core DS Button typography.
+7. Input/select/textarea typography must come from Core DS components.
+8. Do not add external font files.
+9. Do not commit font files.
+10. If exact Core DS font is unavailable, use documented fallback/system stack and report it.
+
+Acceptance for typography:
+1. One consistent app font baseline.
+2. Headings/body/labels/helper text have clear hierarchy.
+3. Sidebar typography is not noisy.
+4. Core DS controls keep their own typography.
+5. No random font-family remains.
+6. No arbitrary text sizes remain where DS should control them.
+
+==================================================
+PHASE 5 — FINAL VISUAL QA
+==================================================
+
+Run after each meaningful change:
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+
+After all fixes:
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Visual QA checklist:
+1. Open Catalog.
+2. Check all visible buttons.
+3. Check card actions.
+4. Check page background and cards.
+5. Check typography of title/subtitle/cards.
+6. Open Builder.
+7. Check top stepper typography.
+8. Check left sidebar typography.
+9. Check Builder top action buttons.
+10. Check editor page background: it should not be a flat gray working area.
+11. Check onboarding editor fields.
+12. Check practice/question editor fields.
+13. Check "Карточка клиента" surface.
+14. Check right inspector surfaces.
+15. Open creation wizard if present.
+16. Check footer buttons.
+17. Check modal typography.
+18. Check disabled buttons.
+19. Check destructive actions.
+20. Check console for runtime errors.
+
+Final report:
+1. What button issues were found globally.
+2. Which files were changed for buttons.
+3. Where accent was replaced with primary.
+4. How button variants are mapped now.
+5. Which destructive buttons remain and why.
+6. What background/surface issues were found.
+7. Which page/container backgrounds changed from gray to white.
+8. Whether "Карточка клиента" now has a proper white surface.
+9. What typography issues were found.
+10. Which typography overrides were removed.
+11. Which Core DS typography/tokens/imports are used.
+12. Whether any font fallback remains and why.
+13. Whether typecheck passed.
+14. Whether build passed.
+15. Whether dev workflow starts.
+16. Remaining visual risks.
+
+Stop after global buttons + surfaces + typography stabilization.
+Do not start any unrelated UI work.
