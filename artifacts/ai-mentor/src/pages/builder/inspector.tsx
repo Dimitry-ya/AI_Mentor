@@ -62,7 +62,7 @@ export function Inspector({ training, selected, report, onJump }: Props) {
         )}
       </div>
 
-      <div className="px-4 py-4 flex-1 overflow-y-auto">
+      <div className="px-4 py-4 flex-1 overflow-y-auto bg-[hsl(var(--surface))]">
         <div className="text-[12px] uppercase tracking-wide text-[hsl(var(--ink-muted))] mb-2">
           Сводка по обучению
         </div>

@@ -220,7 +220,7 @@ export function TheoryEditor({
             disabled={isApproved}
             onValueChange={(v) => update((x) => (x.aBookCategory = v))}
           >
-            <SelectTrigger><SelectValue placeholder="Выберите рубрику" /></SelectTrigger>
+            <SelectTrigger className="bg-[hsl(var(--surface))]"><SelectValue placeholder="Выберите рубрику" /></SelectTrigger>
             <SelectContent>{ABOOK_CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
           </Select>
         </Field>
@@ -641,7 +641,7 @@ export function QuestionEditor({
             value={qs.aBookCategory ?? ""}
             onValueChange={(v) => update((q) => (q.aBookCategory = v))}
           >
-            <SelectTrigger><SelectValue placeholder="Выберите рубрику" /></SelectTrigger>
+            <SelectTrigger className="bg-[hsl(var(--surface))]"><SelectValue placeholder="Выберите рубрику" /></SelectTrigger>
             <SelectContent>{ABOOK_CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
           </Select>
         </Field>

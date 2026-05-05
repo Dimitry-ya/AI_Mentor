@@ -1,0 +1,555 @@
+Task: Systemic UI/UX stabilization pass for AI Mentor.
+
+You are working inside the existing AI Mentor project.
+Do not redesign the product from scratch.
+Do not change business logic, data model, routes, backend, seed data, or localStorage keys.
+Your task is to fix current UI regressions and improve visual consistency across all similar screens.
+
+Project path:
+artifacts/ai-mentor
+
+Design system source of truth:
+https://github.com/core-ds/core-components.git
+https://core-ds.github.io/core-components/master/
+
+Important:
+Use Core DS / @alfalab/core-components patterns wherever possible.
+Do not imitate the design system with random Tailwind styles.
+Local CSS is allowed only for layout, composition, and page-level structure.
+All reusable visual behavior must live in shared components.
+
+==================================================
+CONTEXT / CURRENT PROBLEMS
+==================================================
+
+Current UI still has several visible regressions:
+
+1. Popup / modal screen:
+- Popup background is gray, but it must be white.
+- Step number is visually positioned under or too close to the close button.
+- There is an extra "Отмена" button on this screen. It must be removed.
+- The modal layout feels visually unstable and not aligned with enterprise UI quality.
+
+2. Backgrounds:
+- Background was not changed on all similar screens.
+- Several builder/detail screens still use large flat gray content areas.
+- Similar screens with bottom buttons still have old gray surfaces.
+
+3. Buttons:
+- Buttons are still inconsistent across screens.
+- Icons inside buttons are misaligned.
+- Chevron/arrow icons inside buttons visually drift.
+- Some buttons look custom instead of DS-based.
+- CTA hierarchy is not stable.
+
+4. Selects:
+- Selects visually drifted into another style.
+- Dropdown trigger, dropdown menu, chevron, item spacing, selected state and typography are inconsistent.
+- Selects must be brought back to one consistent DS-like style.
+
+5. Cards:
+- Catalog/training cards still look weak.
+- Card hierarchy, spacing, footer, action button and surface treatment need improvement.
+- Cards must feel cleaner, more premium, more structured and closer to enterprise Core DS UI.
+
+6. Stepper:
+- Stepper must stay simple.
+- Do not add extra status icons inside active steps.
+- Do not use green check icons in the stepper.
+- Stepper should show only:
+  - step number
+  - step title
+  - active state
+  - optional thin divider
+- Readiness/completion should be shown through color/text/status blocks, not extra icons inside the stepper.
+
+==================================================
+UX PRINCIPLES TO FOLLOW
+==================================================
+
+Apply these principles while fixing UI:
+
+1. Main action must be obvious.
+Users should immediately understand what they can do next.
+
+2. Reduce visual noise.
+Do not add excessive badges, icons, shadows, borders, decorative elements or competing accents.
+
+3. Calm enterprise UI.
+The interface should feel stable, clean, predictable and bank-grade.
+
+4. Consistency over local fixes.
+If a visual pattern appears in multiple places, fix the shared component or shared layout, not one instance.
+
+5. User control.
+Do not overload the modal with redundant actions. If the close icon already closes the popup and the main CTA is clear, remove unnecessary secondary actions such as "Отмена" from this popup.
+
+6. Recognition over recall.
+Controls should be visually recognizable and consistent: buttons, selects, cards and stepper must look and behave the same across the app.
+
+==================================================
+PHASE 1 — AUDIT BEFORE EDITING
+==================================================
+
+Before editing, inspect the codebase and write a short audit summary.
+
+Search for all relevant files/usages:
+
+A. Modals / popups:
+- Dialog
+- Modal
+- Sheet
+- Popup
+- Drawer
+- close button
+- "Отмена"
+- step number rendering inside modal/header
+
+B. Backgrounds and surfaces:
+- bg-gray
+- bg-slate
+- bg-zinc
+- bg-neutral
+- bg-muted
+- page wrappers
+- builder layout wrappers
+- modal wrappers
+- editor wrappers
+- bottom action bar wrappers
+
+C. Buttons:
+- button.tsx
+- <Button
+- <button
+- variant="accent"
+- variant="primary"
+- variant="secondary"
+- variant="outline"
+- variant="ghost"
+- icons inside buttons
+- ChevronRight / ArrowRight / X icons
+
+D. Selects:
+- select.tsx
+- <Select
+- SelectTrigger
+- SelectContent
+- SelectItem
+- custom dropdowns
+- filter selects on catalog page
+
+E. Cards:
+- catalog card components
+- training card components
+- exam card components
+- preview cards
+- stats cards
+- action menu buttons with three dots
+
+F. Stepper:
+- stepper component
+- active step component
+- status icons inside steps
+- check icons inside steps
+
+In the audit summary, report:
+1. Which shared components control buttons.
+2. Which shared components control selects.
+3. Which files control modal/popup layout.
+4. Which files control page backgrounds.
+5. Which files control catalog cards.
+6. Which files control stepper.
+7. Which issues must be fixed globally.
+8. Which issues require local fixes only.
+
+Then start editing.
+
+==================================================
+PHASE 2 — FIX MODAL / POPUP SCREEN
+==================================================
+
+Fix the popup/modal screen specifically and all similar modals if they share the same issue.
+
+Requirements:
+
+1. Modal background:
+- Modal content surface must be white.
+- Do not use gray background inside the modal content.
+- Gray may exist only as page overlay/backdrop if needed, not as the modal body surface.
+
+2. Header layout:
+- Close button must be placed in a stable top-right position.
+- Step number must not sit under the close button.
+- Step number must be aligned as part of the content/header flow, not floating into the close area.
+- Ensure enough spacing between:
+  - modal title/header content
+  - step number
+  - close button
+
+3. Remove "Отмена":
+- Remove the "Отмена" button from this popup screen.
+- Do not remove cancel buttons globally unless they create the same redundant pattern.
+- This screen should have only meaningful primary/secondary actions.
+- If close icon already provides dismiss behavior, do not duplicate it with "Отмена".
+
+4. CTA area:
+- Keep only actions that are necessary.
+- Primary action must be visually dominant.
+- Secondary action must not compete with the primary action.
+- Button icons must be centered.
+
+5. Modal quality:
+- White content surface.
+- Clean spacing.
+- No cramped header.
+- No overlap between step number and close button.
+- No redundant cancel action.
+- Calm enterprise look.
+
+Acceptance:
+- Popup background is white.
+- Step number is not under/behind/too close to close button.
+- "Отмена" is removed from this popup.
+- Modal looks stable and aligned.
+- Similar modal screens do not regress.
+
+==================================================
+PHASE 3 — FIX BACKGROUNDS / SURFACES SYSTEMICALLY
+==================================================
+
+The issue was not fixed everywhere. Do a systemic surface pass.
+
+Required surface hierarchy:
+
+1. App shell:
+- May use very light neutral background.
+
+2. Main work area:
+- Must be white or clearly separated from shell.
+- Builder/detail screens should not look like one large gray plane.
+
+3. Modal / popup content:
+- Must be white.
+
+4. Cards and data blocks:
+- White surface.
+- Clear border or subtle elevation.
+- Consistent radius.
+
+5. Bottom action bars:
+- White surface.
+- Clear separation from content.
+- Stable spacing and alignment.
+
+Apply to:
+- catalog page
+- builder overview page
+- onboarding/theory/practice/completion pages
+- modal/popup screens
+- right inspector panel
+- bottom action areas
+- all similar screens with buttons
+
+Do not:
+- Fix only one page.
+- Add random gray patches.
+- Use many different surface colors.
+- Break visual hierarchy.
+
+Acceptance:
+- Similar screens no longer have inconsistent gray content backgrounds.
+- Modal content is white.
+- Bottom action areas sit on clean white surfaces.
+- Content blocks are visually separated from the page shell.
+
+==================================================
+PHASE 4 — FIX BUTTONS AND ICON ALIGNMENT GLOBALLY
+==================================================
+
+Fix all buttons through the shared Button component wherever possible.
+
+Requirements:
+
+1. Use DS-like hierarchy:
+- primary = main CTA
+- secondary = alternative action
+- tertiary/ghost = low-priority utility
+- destructive = destructive action only
+
+2. Remove broken local visual overrides:
+- random bg-*
+- random text-*
+- random border-*
+- random rounded-*
+- random h-*
+- random px/py when they break DS consistency
+- random shadow/ring/focus styles
+
+3. Icon alignment:
+- All icons inside buttons must be vertically centered.
+- Use consistent icon size.
+- Use consistent gap between text and icon.
+- Chevron/arrow icons must not sit lower/higher than text.
+- Icon-only buttons must have stable square size.
+
+4. Visible examples to fix:
+- "Сохранить черновик"
+- "Исправить ошибки"
+- any button with arrow/chevron
+- disabled "AI-помощник (скоро)" button
+- modal action buttons
+- card action buttons
+
+5. Primary CTA:
+- Should be visually obvious.
+- Should not be lost among other red/gray elements.
+- Should not look custom or broken.
+
+Acceptance:
+- Buttons are visually consistent across app.
+- Icons are centered.
+- CTA hierarchy is clear.
+- No local one-off button hacks remain where shared component should be used.
+
+==================================================
+PHASE 5 — FIX SELECTS SYSTEMICALLY
+==================================================
+
+Selects currently drifted into another style. Fix all selects using one shared implementation.
+
+Inspect and update:
+- shared select component
+- catalog filters
+- builder form selects
+- right panel selects
+- any custom select/dropdown wrappers
+
+Requirements:
+
+1. One visual language:
+- trigger
+- dropdown menu
+- item
+- selected item
+- hover state
+- disabled state
+- chevron
+- check icon
+
+2. Trigger:
+- consistent height
+- clean white surface
+- readable text
+- correct border
+- correct radius
+- chevron aligned vertically
+- no accidental gray fill unless DS requires it
+
+3. Dropdown:
+- white surface
+- stable width relative to trigger
+- clean padding
+- selected item clearly shown
+- check icon aligned
+- hover state calm
+- no oversized shadows
+- no random rounded shape mismatch
+
+4. Typography:
+- same font scale as the rest of the app.
+- no drift between search input, select trigger and dropdown items.
+
+Acceptance:
+- Catalog filters look consistent.
+- Dropdown no longer looks like a different UI kit.
+- Chevron/check icons are aligned.
+- Similar select instances look the same across the app.
+
+==================================================
+PHASE 6 — IMPROVE CATALOG / TRAINING CARDS
+==================================================
+
+Current cards need stronger UI quality.
+
+Improve all similar catalog cards:
+- training cards
+- exam cards
+- cards with gradient preview area
+- cards with status/readiness/footer
+- cards with three-dot action menu
+
+Requirements:
+
+1. Card structure:
+- clear preview area
+- clear content area
+- clear footer/action area
+- no visual clutter
+
+2. Surface:
+- white lower content area
+- consistent card radius
+- subtle border or elevation
+- no heavy random shadows
+- no weak floating look
+
+3. Preview area:
+- gradient can stay, but must feel cleaner and more intentional.
+- decorative elements must be subtle.
+- tag/chip must be aligned and not randomly floating.
+- three-dot menu must feel integrated.
+
+4. Card action menu:
+- three-dot button must not look oversized or detached.
+- align it consistently.
+- make it accessible and visually calm.
+- use shared icon-button style if possible.
+
+5. Typography:
+- title stronger.
+- metadata secondary.
+- status/readiness readable but not too loud.
+- action text like "Открыть" aligned consistently.
+
+6. Footer:
+- status dot, status text, readiness and CTA must align on one baseline.
+- avoid cramped layout.
+- do not let secondary metadata compete with primary action.
+
+7. Empty/changed state:
+- "Есть изменения" state must be visible but not noisy.
+- Use status color carefully.
+- Do not overuse orange/red.
+
+Acceptance:
+- Cards look more polished and enterprise-grade.
+- Cards have better hierarchy.
+- Card footer is easier to scan.
+- Action menu is integrated.
+- Similar cards are consistent.
+
+==================================================
+PHASE 7 — FIX STEPPER
+==================================================
+
+Stepper must stay clean and compact.
+
+Requirements:
+- Use only step number and step title.
+- Active step may use background/color/text state.
+- Optional thin divider between steps is allowed.
+- Do not use separate green check icons inside stepper.
+- Do not add extra status icons to the right of step title.
+- Do not place red dot or check icon in a way that looks like a separate control.
+- Completion/readiness should be shown through:
+  - step color
+  - text state
+  - overall block status
+  - validation panel
+not through extra icons inside the stepper.
+
+Target look:
+1 Онбординг
+2 Теория
+3 Практика
+4 Завершение
+
+Acceptance:
+- Stepper is clean.
+- No extra check/status icons inside stepper.
+- Active state is clear.
+- Stepper does not compete with page content.
+
+==================================================
+PHASE 8 — APPLY BEST UI/UX PRACTICES
+==================================================
+
+While fixing the UI, apply these practical rules:
+
+1. Make the primary action easy to find.
+2. Remove redundant actions.
+3. Reduce unnecessary visual accents.
+4. Keep one visual system for repeated components.
+5. Align icons and text consistently.
+6. Use white surfaces for content-heavy and decision-heavy areas.
+7. Do not make users scan chaotic layouts.
+8. Do not make one screen look like a different product.
+9. Keep enterprise UI calm, predictable and structured.
+10. Fix root components instead of repeating local overrides.
+
+==================================================
+PHASE 9 — VALIDATION
+==================================================
+
+Run:
+
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Visual QA checklist:
+
+1. Popup/modal:
+- background is white
+- step number does not collide with close button
+- close button aligned correctly
+- "Отмена" removed from this popup
+- actions are clear
+
+2. Catalog page:
+- background/surfaces fixed
+- search input stable
+- selects look consistent
+- dropdown style fixed
+- cards improved
+
+3. Builder overview:
+- background/surfaces fixed
+- stats cards readable
+- details area clean
+- bottom action bar clean
+
+4. Buttons:
+- icons aligned
+- primary/secondary hierarchy clear
+- no broken local styles
+
+5. Cards:
+- at least 3 catalog cards checked
+- footer alignment checked
+- action menu checked
+
+6. Selects:
+- at least 3 selects checked
+- trigger/menu/item/chevron/check alignment checked
+
+7. Stepper:
+- no extra status/check icons
+- active step clear
+- compact enterprise look
+
+8. Similar screens:
+- confirm fixes are systemic, not applied only to one screenshot.
+
+==================================================
+FINAL REPORT
+==================================================
+
+After completing the pass, provide a concise report:
+
+1. Files changed.
+2. Shared components fixed.
+3. Modal/popup issues fixed.
+4. Background/surface issues fixed.
+5. Button/icon alignment issues fixed.
+6. Select issues fixed.
+7. Card improvements made.
+8. Stepper cleanup made.
+9. Which fixes are systemic.
+10. Which fixes are local and why.
+11. Typecheck result.
+12. Build result.
+13. Dev server result.
+14. Remaining UI risks, if any.
+
+Stop only after this full stabilization pass is complete.
