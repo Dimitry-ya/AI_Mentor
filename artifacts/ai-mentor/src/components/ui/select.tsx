@@ -20,7 +20,7 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       // @replit: hover-elevate for interaction feedback; shadow-xs aligns with Core DS button/badge
-      "flex min-h-10 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-[hsl(var(--surface))] px-3 py-2 text-sm shadow-xs hover-elevate data-[placeholder]:text-muted-foreground focus:outline-none focus:border-primary disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex min-h-10 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-[hsl(var(--surface))] px-3 py-2 text-sm shadow-xs hover-elevate data-[placeholder]:text-[hsl(var(--ink-muted))] focus:outline-none focus:border-primary disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
     {...props}
@@ -121,7 +121,7 @@ const SelectItem = React.forwardRef<
     ref={ref}
     className={cn(
       // @replit: hover-elevate for consistent interaction feedback
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-2 pl-2 pr-8 text-sm outline-none hover-elevate focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-2 pl-2 pr-8 text-sm outline-none hover-elevate focus:bg-primary focus:text-primary-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
