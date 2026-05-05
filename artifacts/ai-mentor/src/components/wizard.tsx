@@ -399,7 +399,7 @@ export function Wizard({ isOpen, onClose }: WizardProps) {
         </div>
 
         <div className="px-6 py-4 border-t border-border bg-[hsl(216_20%_98%)] flex items-center justify-between gap-3">
-          <Button variant="ghost" onClick={onClose}>Отмена</Button>
+          <Button variant="outline" onClick={onClose}>Отмена</Button>
           <div className="flex items-center gap-2">
             {step > 1 && (
               <Button variant="outline" onClick={() => setStep((s) => Math.max(1, s - 1))}>

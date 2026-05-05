@@ -104,7 +104,7 @@ export function RunnerPage({ mode }: { mode: RunnerMode }) {
       {/* Top bar */}
       <div className="h-[56px] shrink-0 bg-[hsl(var(--surface))] border-b border-border flex items-center px-4">
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
           className="gap-1 text-[hsl(var(--ink-muted))]"
           onClick={() =>
@@ -122,7 +122,7 @@ export function RunnerPage({ mode }: { mode: RunnerMode }) {
           </div>
         </div>
         {mode !== "learner" && (
-          <Button size="sm" variant="outline" onClick={restart} className="gap-1.5">
+          <Button size="sm" variant="secondary" onClick={restart} className="gap-1.5">
             <RefreshCcw className="w-4 h-4" /> Сбросить
           </Button>
         )}

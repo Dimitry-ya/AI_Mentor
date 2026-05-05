@@ -45,7 +45,7 @@ const VARIANT_TO_VIEW: Record<
   string,
   "accent" | "primary" | "secondary" | "outlined" | "transparent" | "text"
 > = {
-  default: "accent",
+  default: "primary",
   destructive: "accent",
   outline: "outlined",
   secondary: "secondary",

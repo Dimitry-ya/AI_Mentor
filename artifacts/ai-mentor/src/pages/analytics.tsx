@@ -146,7 +146,7 @@ export default function Analytics() {
               Сводка по прохождению обучений сотрудниками банка.
             </p>
           </div>
-          <Button variant="outline" className="gap-2" onClick={exportCsv}>
+        <Button variant="secondary" className="gap-2" onClick={exportCsv}>
             <Download className="w-4 h-4" /> Выгрузить CSV
           </Button>
         </div>

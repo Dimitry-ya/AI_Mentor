@@ -1,0 +1,216 @@
+Run a focused button bugfix pass across the whole AI Mentor app.
+
+Scope:
+Fix only buttons and button-like actions.
+
+Do not fix selects.
+Do not fix sidebar/tree.
+Do not fix cards.
+Do not fix modals.
+Do not fix form fields.
+Do not redesign screens.
+Do not change business logic.
+
+Problem:
+Buttons are visually inconsistent across the app. Some buttons are misaligned, have broken spacing, incorrect height, wrong icon alignment, and use accent-like styling where primary hierarchy should be used.
+
+Important rule:
+Replace accent button usage with primary button usage where the button represents the main CTA.
+
+Core DS source of truth:
+https://github.com/core-ds/core-components
+https://core-ds.github.io/core-components/master/
+
+Core DS means actual @alfalab/core-components packages.
+Use @alfalab/core-components-button for real buttons.
+Do not imitate Core DS with local CSS.
+Do not use random Tailwind classes for button visual styling.
+
+Main tasks:
+
+1. Audit all button usage
+Search across artifacts/ai-mentor/src for:
+- <Button
+- buttonVariants
+- variant="accent"
+- variant="primary"
+- variant="secondary"
+- variant="outline"
+- variant="destructive"
+- variant="ghost"
+- native <button
+- role="button"
+
+2. Fix the shared button wrapper
+Inspect:
+artifacts/ai-mentor/src/components/ui/button.tsx
+
+Make sure:
+- it renders @alfalab/core-components-button;
+- it preserves old imports;
+- old variants are mapped correctly;
+- accent is not used as the default main CTA style;
+- primary maps to the real Core DS primary/main action style;
+- secondary/outline maps to a quieter secondary style;
+- destructive is used only for delete/remove actions;
+- ghost/tertiary remains low-emphasis.
+
+Required variant mapping:
+- primary -> Core DS primary/main CTA
+- accent -> map to primary for backward compatibility, but stop using accent semantically in app code
+- secondary -> Core DS secondary
+- outline -> Core DS secondary/outlined if supported
+- ghost -> Core DS tertiary/ghost-like if supported
+- destructive -> destructive/danger only for delete/remove actions
+
+3. Replace semantic accent usage
+Find all places where accent is used for normal main actions.
+
+Replace:
+variant="accent"
+
+with:
+variant="primary"
+
+when the action is:
+- Далее
+- Сохранить
+- Создать
+- Опубликовать
+- Продолжить
+- Запустить
+- Проверить if it is the main action in that context
+- any main forward/proceed/confirm action
+
+Keep destructive styling only for:
+- Удалить
+- Remove
+- Delete
+- destructive confirmation actions
+
+4. Normalize button layout
+For all buttons:
+- consistent height;
+- icons vertically centered;
+- text vertically centered;
+- consistent gap between icon and text;
+- consistent gap between text and badge/counter;
+- no broken baseline;
+- no custom random border/radius/background Tailwind classes on the button itself;
+- no oversized icons;
+- no stretched badges.
+
+5. Fix icon buttons and buttons with counters
+For buttons like:
+- "Проверить 6"
+- "Предпросмотр"
+- "Опубликовать"
+- any icon + text action
+
+Rules:
+- icon size must be consistent;
+- icon must not change button height;
+- counter badge must be compact and aligned;
+- badge must not stretch the button;
+- badge should not compete with primary label.
+
+6. Top Builder action bar
+Specifically fix:
+- "Предпросмотр"
+- "Проверить 6"
+- "Опубликовать"
+
+Requirements:
+- all three have equal height;
+- "Опубликовать" is primary, not accent/destructive red;
+- "Предпросмотр" is secondary;
+- "Проверить" is secondary unless current screen treats it as the only main action;
+- badge "6" is aligned and compact;
+- icons and text are centered.
+
+7. Button hierarchy across the app
+Audit and normalize buttons on:
+- Catalog page;
+- Builder page;
+- right inspector;
+- creation wizard;
+- dropdown/menu actions if they render as buttons;
+- preview/sandbox/learner screens;
+- analytics/admin screens if present.
+
+Button semantics:
+- Primary: main action on the screen/modal.
+- Secondary: alternative safe action.
+- Tertiary/ghost: low-emphasis utility action.
+- Destructive: delete/remove only.
+
+8. Do not change labels or logic
+Do not change:
+- button text;
+- click handlers;
+- disabled logic;
+- routes;
+- business logic;
+- localStorage key ai-mentor:v1;
+- seed data.
+
+Allowed changes:
+- button variant props;
+- button wrapper mapping;
+- icon alignment wrappers;
+- small layout wrappers around buttons;
+- compact counter badge alignment;
+- removing visual Tailwind classes that override Core DS Button.
+
+Do not:
+1. Do not change selects.
+2. Do not change inputs/textareas.
+3. Do not change side navigation.
+4. Do not change cards.
+5. Do not change modals except button variants inside modal footers.
+6. Do not touch backend/lib.
+7. Do not install broad dependency sets.
+8. Do not add random colors, shadows, radius or font sizes.
+
+Acceptance criteria:
+1. All primary actions use primary, not accent.
+2. No normal CTA uses destructive/accent red styling.
+3. Destructive style is used only for delete/remove actions.
+4. Buttons across the app have consistent height.
+5. Icons and text are vertically centered.
+6. Buttons with counters/badges remain aligned.
+7. Top Builder action bar looks consistent.
+8. No unrelated UI changed.
+9. Typecheck passes.
+10. Build passes.
+
+After changes run:
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Visual QA:
+1. Open Catalog.
+2. Check main actions and card actions.
+3. Open Builder.
+4. Check top action bar.
+5. Check right inspector buttons.
+6. Open creation wizard.
+7. Check footer buttons.
+8. Check any disabled buttons.
+9. Check delete/destructive actions.
+10. Check console for errors.
+
+Final report:
+1. Which files were changed.
+2. Which button variants were found.
+3. Where accent was replaced with primary.
+4. How old accent mapping is handled for backward compatibility.
+5. How icon/counter alignment was fixed.
+6. Which destructive buttons remain and why.
+7. Whether typecheck passed.
+8. Whether build passed.
+9. Whether dev starts.
+10. Any remaining button visual risks.
+
+Stop after the button bugfix pass.

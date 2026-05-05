@@ -243,7 +243,7 @@ function TrainingCard({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                variant="secondary"
+                variant="outline"
                 size="icon"
                 className="w-8 h-8 rounded-full bg-white/95 backdrop-blur shadow-sm hover:bg-white"
               >

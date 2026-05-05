@@ -286,7 +286,7 @@ export default function BuilderPage() {
     <div className="h-screen flex flex-col bg-background overflow-hidden">
       {/* HEADER */}
       <div className="h-[60px] shrink-0 bg-[hsl(var(--surface))] border-b border-border flex items-center px-4 gap-4">
-        <Button variant="ghost" size="sm" onClick={() => setLocation("/catalog")} className="gap-1 text-[hsl(var(--ink-muted))]">
+        <Button variant="outline" size="sm" onClick={() => setLocation("/catalog")} className="gap-1 text-[hsl(var(--ink-muted))]">
           <ChevronLeft className="w-4 h-4" /> Каталог
         </Button>
         <div className="h-6 w-px bg-border" />
@@ -299,10 +299,10 @@ export default function BuilderPage() {
 
         <div className="flex items-center gap-2">
           <StatusPill status={training.status} />
-          <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setLocation(`/preview/${id}`)}>
+          <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => setLocation(`/preview/${id}`)}>
             <Eye className="w-4 h-4" /> Предпросмотр
           </Button>
-          <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setCheckOpen(true)}>
+          <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => setCheckOpen(true)}>
             <ShieldCheck className="w-4 h-4" />
             Проверить
             {report.errors.length > 0 && (

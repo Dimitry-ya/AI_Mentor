@@ -173,7 +173,7 @@ export default function AccessPage() {
                 </Select>
                 <Button
                   size="sm"
-                  variant="outline"
+                  variant="secondary"
                   className="h-8 gap-1.5"
                   onClick={() => {
                     bulkSetStatus(Array.from(selectedIds), "Заблокирован");
@@ -184,7 +184,7 @@ export default function AccessPage() {
                 </Button>
                 <Button
                   size="sm"
-                  variant="outline"
+                  variant="secondary"
                   className="h-8 gap-1.5"
                   onClick={() => {
                     bulkSetStatus(Array.from(selectedIds), "Активен");
@@ -203,7 +203,7 @@ export default function AccessPage() {
                 </Button>
               </div>
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 className="ml-auto h-8"
                 onClick={() => setSelectedIds(new Set())}
@@ -377,7 +377,7 @@ function EmployeeRow({
       <td className="px-4 py-2.5 text-right">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="w-8 h-8">
+            <Button variant="outline" size="icon" className="w-8 h-8">
               <MoreHorizontal className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -486,7 +486,7 @@ function AddEmployeeDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button variant="ghost" onClick={() => { reset(); onClose(); }}>Отмена</Button>
+          <Button variant="outline" onClick={() => { reset(); onClose(); }}>Отмена</Button>
           <Button onClick={submit}>Добавить</Button>
         </DialogFooter>
       </DialogContent>

@@ -25,13 +25,13 @@ export function ScenarioFooter({
     <div className="sticky bottom-0 z-30 bg-[hsl(var(--surface))] border-t border-border">
       <div className="max-w-[920px] mx-auto px-6 h-14 flex items-center gap-2">
         {onBack && (
-          <Button variant="ghost" size="sm" onClick={onBack} className="gap-1 text-[hsl(var(--ink-muted))]">
+          <Button variant="outline" size="sm" onClick={onBack} className="gap-1 text-[hsl(var(--ink-muted))]">
             <ChevronLeft className="w-4 h-4" />
             Назад
           </Button>
         )}
         {onCancel && (
-          <Button variant="ghost" size="sm" onClick={onCancel}>
+          <Button variant="outline" size="sm" onClick={onCancel}>
             Отмена
           </Button>
         )}
