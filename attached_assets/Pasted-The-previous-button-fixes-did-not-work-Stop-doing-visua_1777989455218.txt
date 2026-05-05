@@ -1,0 +1,163 @@
+The previous button fixes did not work.
+
+Stop doing visual guesses.
+
+We need a deterministic debug-and-fix pass for the broken buttons.
+
+Problem still visible:
+The Builder top action buttons are still visually broken:
+- "Предпросмотр" is gray/custom-looking
+- "Проверить 6" is gray/custom-looking
+- "Опубликовать" is dark/black
+- Buttons do not look like normalized Core DS buttons
+- Spacing/icon/text/badge alignment is still wrong
+
+This means one of these is true:
+1. These buttons do not use the shared Button wrapper.
+2. The shared Button wrapper does not actually render Core DS Button correctly.
+3. Old CVA/Tailwind classes still override Core DS Button.
+4. variant="primary" is mapped to the wrong Core DS view.
+5. "Опубликовать" still uses accent/destructive/custom styling.
+6. A parent action bar CSS class overrides button appearance.
+
+Do not fix anything yet.
+
+First, produce a short diagnostic report with exact file paths and code snippets.
+
+Step 1 — find exact render location:
+Run:
+
+rg "Предпросмотр|Проверить|Опубликовать" artifacts/ai-mentor/src -n
+
+Report:
+- exact file path
+- component name
+- code snippet where the three buttons are rendered
+
+Step 2 — inspect shared Button:
+Open:
+
+artifacts/ai-mentor/src/components/ui/button.tsx
+
+Report:
+- does it import @alfalab/core-components-button?
+- does it render AlfalabButton?
+- does it still use CVA classes on the rendered button?
+- does it pass old className directly into AlfalabButton?
+- how are variants mapped:
+  - primary
+  - accent
+  - secondary
+  - outline
+  - ghost
+  - destructive
+
+Step 3 — inspect actual button props:
+For the three buttons, report:
+- which component is used: Button / native button / div / link
+- variant prop
+- size prop
+- className prop
+- icon rendering
+- counter/badge rendering
+- parent wrapper classes
+
+Step 4 — identify the real cause:
+Before editing, explicitly write one of these:
+- Cause A: buttons are not using shared Button wrapper
+- Cause B: shared Button wrapper renders Core DS but old Tailwind/CVA className overrides it
+- Cause C: primary/accent mapping is wrong in button.tsx
+- Cause D: parent action bar CSS overrides button appearance
+- Cause E: counter/badge/icon layout breaks height/alignment
+- Cause F: combination of several causes
+
+Only after this diagnosis, fix the exact cause.
+
+Fix rules:
+
+1. The three buttons must use the same shared Button wrapper, unless direct Core DS Button usage is simpler and safer.
+
+2. The rendered button must ultimately be @alfalab/core-components-button.
+
+3. Do not pass old visual CVA/Tailwind classes into AlfalabButton.
+Old buttonVariants export may stay for backward compatibility, but it must not define the visual style of Core DS-rendered buttons.
+
+4. For these three buttons, remove visual className overrides:
+- bg-*
+- text-* if it changes button color/size
+- border-*
+- rounded-*
+- h-*
+- px-*
+- py-*
+- shadow
+- ring
+- focus:ring
+
+5. Keep only safe layout classes on wrappers, not on the button itself:
+- flex
+- items-center
+- gap
+- justify-end
+
+6. Fix variant mapping in button.tsx:
+- primary must map to the correct Core DS primary/main CTA view
+- accent must map to primary only for backward compatibility
+- secondary/outline must map to Core DS secondary/outlined
+- destructive must be used only for delete/remove actions
+- ghost must be low-emphasis
+
+7. "Опубликовать":
+- must use variant="primary"
+- must not use variant="accent"
+- must not use variant="destructive"
+- must not render black/dark custom styling unless that is the actual Core DS primary style
+- must be the strongest button in the group
+
+8. "Предпросмотр":
+- must use secondary/outline hierarchy
+- must be quieter than "Опубликовать"
+
+9. "Проверить":
+- must use secondary/outline hierarchy
+- counter "6" must be compact and vertically centered
+
+10. Icon alignment:
+- use one consistent icon size
+- icon and text must be vertically centered
+- icon must not change button height
+
+11. Badge/counter alignment:
+- if using a local counter, make it inline-flex
+- fixed compact size
+- centered text
+- no layout stretch
+- no oversized red circle
+
+Acceptance criteria:
+1. The three buttons have equal height.
+2. Icons, text and badge are vertically centered.
+3. "Опубликовать" is primary and not black/custom/destructive.
+4. "Предпросмотр" and "Проверить" are secondary.
+5. No visual Tailwind/CVA classes are passed into Core DS Button for these buttons.
+6. The cause is explained with exact file paths.
+7. No unrelated UI is changed.
+
+After fix run:
+
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Final report must include:
+1. Exact cause.
+2. Exact files changed.
+3. Before/after variant mapping.
+4. Whether old className/CVA was overriding Core DS.
+5. Whether these three buttons now use Core DS Button.
+6. Whether "Опубликовать" still uses accent anywhere.
+7. Whether typecheck passed.
+8. Whether build passed.
+9. Whether dev starts.
+
+Stop after fixing only these three buttons.
