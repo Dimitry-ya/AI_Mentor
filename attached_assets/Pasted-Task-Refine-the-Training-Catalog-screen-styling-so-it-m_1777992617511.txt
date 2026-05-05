@@ -1,0 +1,253 @@
+Task: Refine the Training Catalog screen styling so it matches our Core DS better and improves visual hierarchy.
+
+Project path:
+artifacts/ai-mentor
+
+Screen to fix:
+Catalog screen with sections:
+- "Есть изменения"
+- "Есть ошибки"
+- "Черновик"
+
+Current issues:
+1. The "Открыть" action on cards is not styled as a DS action.
+2. Section titles "Есть изменения", "Есть ошибки", "Черновик" look weak and visually unbalanced.
+3. Section headings should be slightly larger and more readable.
+4. Visual hierarchy between section heading, card title, metadata and action is not strong enough.
+5. The whole screen should feel more polished, cleaner, and closer to enterprise UI / our design system.
+
+Important:
+Do not redesign the entire screen from scratch.
+Do not change routing, business logic, filtering logic, or card data.
+Do not remove sections.
+Do not change catalog sorting behavior.
+Focus only on styling, hierarchy, spacing, and DS consistency.
+
+==================================================
+GOAL
+==================================================
+
+Improve the catalog screen so that:
+- section headers look stronger and cleaner
+- the "Открыть" action uses our DS style
+- cards feel visually more polished
+- the screen is easier to scan
+- visual hierarchy is clearer
+- typography and spacing are more consistent with the rest of the product
+
+==================================================
+REQUIRED CHANGES
+==================================================
+
+1. FIX CARD ACTION "ОТКРЫТЬ"
+- Replace the current "Открыть →" text action with a Core DS-styled action.
+- Use the shared DS button / button-link / action component already used in the project.
+- The action must look like a proper DS control, not like plain text.
+- It should stay compact and fit the card footer.
+- Preserve current click behavior.
+- If the card footer layout is tight, use a tertiary/ghost/link-button style from the DS, but still clearly interactive.
+- Icon and label must be vertically aligned.
+- Internal spacing between icon and text must be correct.
+- Text baseline and icon position must be visually centered.
+
+Preferred behavior:
+- "Открыть" should remain visually lightweight, but clearly a DS action.
+- Avoid raw red text link styling if it breaks DS consistency.
+
+2. IMPROVE SECTION HEADERS
+For these section titles:
+- "Есть изменения"
+- "Есть ошибки"
+- "Черновик"
+
+Do the following:
+- Increase font size slightly
+- Increase font weight slightly
+- Improve spacing above and below
+- Align the title, colored status dot, and count better
+- Make the count visually secondary but still readable
+- Ensure the section header is clearly separated from the card grid below
+
+Desired visual hierarchy:
+- colored dot = status marker
+- section label = strong text
+- count = muted secondary text
+
+Example target feel:
+clean enterprise section header, more structured, more premium, easier to scan.
+
+3. REFINE CARD VISUALS
+Improve the training cards stylistically without changing the data model.
+
+Refine:
+- spacing inside card footer
+- spacing between title, subtitle, status row, and action row
+- alignment of status dot, status text, progress percent, and action
+- visual balance between the top illustration area and the content area
+- card shadow / border / radius only if needed and only using current DS-compatible tokens
+
+The cards should feel:
+- neat
+- more polished
+- easier to scan
+- closer to a production-ready enterprise catalog
+
+Do not make them flashy.
+Do not overdecorate them.
+Do not break the existing colored top area.
+
+4. TYPOGRAPHY HIERARCHY
+Improve hierarchy for:
+- page title "Каталог обучения"
+- section headers
+- card title
+- metadata line
+- status line
+- card action
+
+Required hierarchy:
+- page title = strongest
+- section headers = clearly stronger than metadata
+- card title = prominent
+- metadata = secondary
+- status/progress line = tertiary but readable
+- action = visually clear interactive control
+
+Use existing project typography tokens / shared typography styles / DS variables if available.
+Do not introduce random font sizes ad hoc if typography tokens already exist.
+
+5. SPACING AND GRID CLEANUP
+Review and refine:
+- spacing between search/filter row and first section
+- spacing between sections
+- spacing between section header and its card grid
+- spacing between cards in the grid
+- internal card paddings
+
+Target:
+- more breathing room
+- more consistent rhythm
+- no cramped feeling
+- no uneven visual density
+
+6. KEEP DESIGN SYSTEM CONSISTENCY
+Use our existing Core DS wrappers / tokens / shared UI primitives wherever possible.
+Do not create one-off styles if an existing DS-compatible component already exists.
+If a shared "Button" or "LinkButton" wrapper exists, use it for "Открыть".
+
+==================================================
+DO NOT CHANGE
+==================================================
+
+Do not change:
+- filter behavior
+- search behavior
+- card click routing
+- section grouping logic
+- counts
+- content text
+- business logic
+- color meaning of status groups
+
+Do not:
+- replace the whole catalog layout
+- redesign the card illustration area from scratch
+- turn the screen into a different pattern
+- change button texts unnecessarily
+
+==================================================
+FILES TO INSPECT
+==================================================
+
+Inspect:
+- catalog page
+- card component used in catalog
+- section header rendering
+- shared button/link button components
+- typography/token files if needed
+
+Before editing, identify:
+1. file for catalog page
+2. file for training/exam card
+3. file or code that renders section headers
+4. shared DS button/action component that should be reused for "Открыть"
+
+==================================================
+IMPLEMENTATION NOTES
+==================================================
+
+Possible improvements for section headers:
+- slightly larger size than current
+- semibold weight
+- improved line-height
+- tighter grouping of dot + label + count
+- better vertical margin
+
+Possible improvements for card footer:
+- align left block (status + percent) and right block ("Открыть") better
+- ensure "Открыть" does not look detached or like plain text
+- improve footer row balance
+
+If needed:
+- create a small reusable SectionHeader component for these groups
+but only if it simplifies consistency and does not overcomplicate the code.
+
+==================================================
+ACCEPTANCE CRITERIA
+==================================================
+
+1. The "Открыть" action now uses a DS-consistent interactive style.
+2. "Открыть" preserves current behavior.
+3. Icon/text alignment inside the action is correct.
+4. Section headers "Есть изменения", "Есть ошибки", "Черновик" are visually stronger.
+5. Section headers are slightly larger than before.
+6. Dot + label + count alignment looks cleaner.
+7. Cards feel more polished and easier to scan.
+8. Typography hierarchy is improved.
+9. Spacing between sections and cards is improved.
+10. No business logic changed.
+11. Typecheck passes.
+12. Build passes.
+
+==================================================
+VALIDATION COMMANDS
+==================================================
+
+Run:
+
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+==================================================
+MANUAL QA
+==================================================
+
+Check manually:
+1. Open the catalog screen.
+2. Verify section headers are more readable and slightly larger.
+3. Verify "Есть изменения", "Есть ошибки", "Черновик" look cleaner.
+4. Verify "Открыть" looks like a DS action, not plain text.
+5. Verify the card footer alignment is improved.
+6. Verify metadata and status line are readable and well aligned.
+7. Verify spacing between sections is improved.
+8. Verify card grid still works on the current screen width.
+9. Verify trainer and exam cards both look consistent.
+10. Verify filters/search row still looks unchanged functionally.
+
+==================================================
+FINAL REPORT
+==================================================
+
+Report:
+1. Which files were changed
+2. How "Открыть" was restyled
+3. How section headers were improved
+4. What typography changes were made
+5. What spacing changes were made
+6. Whether shared DS components were reused
+7. Whether typecheck passed
+8. Whether build passed
+9. Whether dev server starts
+
+Stop after this catalog screen styling refinement.

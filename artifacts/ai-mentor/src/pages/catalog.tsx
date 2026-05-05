@@ -10,6 +10,7 @@ import {
   Eye,
   Play,
   RotateCcw,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -136,14 +137,14 @@ export default function Catalog() {
         {filtered.length === 0 ? (
           <EmptyState onCreate={() => setWizardOpen(true)} />
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-10">
             {groups.map((g) =>
               g.items.length === 0 ? null : (
                 <section key={g.status}>
-                  <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-border/50">
                     <span className={`am-dot ${STATUS_DOT[g.status]}`} />
-                    <h2 className="text-[15px] font-semibold">{g.status}</h2>
-                    <span className="text-[12px] text-[hsl(var(--ink-muted))]">
+                    <h2 className="text-[16px] font-semibold tracking-tight">{g.status}</h2>
+                    <span className="text-[13px] font-medium text-[hsl(var(--ink-muted))]">
                       {g.items.length}
                     </span>
                   </div>
@@ -279,29 +280,32 @@ function TrainingCard({
           </DropdownMenu>
         </div>
       </div>
-      <div className="px-4 pt-4 pb-0 flex flex-col flex-1 min-h-0">
+      <div className="px-4 pt-4 pb-1 flex flex-col flex-1 min-h-0">
         <button
           onClick={onOpen}
-          className="font-semibold text-[15px] leading-snug text-left line-clamp-2 hover:text-primary transition-colors mb-1"
+          className="font-semibold text-[15px] leading-snug text-left line-clamp-2 hover:text-primary transition-colors mb-1.5"
         >
           {t.name}
         </button>
-        <div className="text-[12px] text-[hsl(var(--ink-muted))] truncate">
+        <div className="text-[12.5px] text-[hsl(var(--ink-muted))] truncate">
           {t.factory} · {t.direction} · {t.duration}
         </div>
-        <div className="mt-3 pt-3 pb-3 border-t border-border/60 flex items-center justify-between text-[12px]">
-          <div className="flex items-center gap-1.5 text-[hsl(var(--ink-muted))]">
+        <div className="mt-3 pt-2.5 pb-1 border-t border-border/60 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-[12.5px] text-[hsl(var(--ink-muted))]">
             <span className={`am-dot ${STATUS_DOT[t.status]}`} />
             <span>{t.status}</span>
-            <span className="mx-0.5 opacity-50">·</span>
+            <span className="mx-0.5 opacity-40">·</span>
             <span>{t.readiness}%</span>
           </div>
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={onOpen}
-            className="text-[13px] font-medium text-primary hover:text-primary/80 transition-colors"
+            className="gap-1 h-7 px-2 -mr-1.5 text-primary hover:text-primary hover:bg-primary/[0.07]"
           >
-            Открыть →
-          </button>
+            Открыть
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Button>
         </div>
       </div>
     </div>
