@@ -50,7 +50,7 @@ export function ScenarioFooter({
           {primary && (
             <Button onClick={primary.onClick} disabled={primary.disabled} className="gap-1">
               {primary.label}
-              <ChevronRight className="w-4 h-4" />
+              {primary.label === "Далее" && <ChevronRight className="w-4 h-4" />}
             </Button>
           )}
         </div>

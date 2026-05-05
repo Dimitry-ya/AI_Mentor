@@ -132,13 +132,13 @@ export function Wizard({ isOpen, onClose }: WizardProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[680px] p-0 gap-0 overflow-hidden bg-[hsl(var(--surface))]">
         <DialogHeader className="px-6 pt-6 pb-4 border-b border-border">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 pr-8">
             <DialogTitle className="text-[18px]">
               {step === 1 && "Что создаём?"}
               {step === 2 && "Способ создания"}
               {step === 3 && "Настройка обучения"}
             </DialogTitle>
-            <div className="text-[12px] text-[hsl(var(--ink-muted))]">Шаг {step} из 3</div>
+            <div className="text-[12px] text-[hsl(var(--ink-muted))] shrink-0">Шаг {step} из 3</div>
           </div>
           <div className="flex gap-1.5 mt-3">
             {[1, 2, 3].map((s) => (

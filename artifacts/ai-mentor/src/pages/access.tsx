@@ -377,9 +377,13 @@ function EmployeeRow({
       <td className="px-4 py-2.5 text-right">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="w-8 h-8">
+            <button
+              type="button"
+              aria-label="Действия"
+              className="w-8 h-8 rounded-lg border border-border bg-[hsl(var(--surface))] hover:bg-muted flex items-center justify-center transition-colors"
+            >
               <MoreHorizontal className="w-4 h-4" />
-            </Button>
+            </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem

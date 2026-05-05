@@ -242,13 +242,13 @@ function TrainingCard({
         <div className="absolute top-3 right-3">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="w-8 h-8 rounded-full bg-white/95 backdrop-blur shadow-sm hover:bg-white"
+              <button
+                type="button"
+                aria-label="Действия"
+                className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-white/30 shadow-sm hover:bg-white flex items-center justify-center transition-colors"
               >
                 <MoreHorizontal className="w-4 h-4" />
-              </Button>
+              </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-52">
               <DropdownMenuItem onClick={onOpen}>

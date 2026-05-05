@@ -834,7 +834,7 @@ export function RootEditor({ training }: { training: Training }) {
         {stat("Кейсов", t.structure.practice.sections.reduce((a, s) => a + s.cases.length, 0))}
         {stat("Вопросов", t.structure.practice.sections.reduce((a, s) => a + s.cases.reduce((b, c) => b + c.questions.length, 0), 0))}
       </div>
-      <div className="rounded-xl border border-border p-4 bg-[hsl(216_20%_98%)] text-[13.5px] leading-relaxed text-[hsl(var(--ink))]">
+      <div className="rounded-xl border border-border p-4 bg-[hsl(var(--surface))] text-[13.5px] leading-relaxed text-[hsl(var(--ink))]">
         {t.description || "Описание обучения не заполнено."}
       </div>
       <div className="grid grid-cols-2 gap-3">

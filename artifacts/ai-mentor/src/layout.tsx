@@ -41,7 +41,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           })}
         </div>
         <div className="mt-auto p-4">
-          <div className="rounded-xl border border-border bg-[hsl(216_20%_98%)] p-3 text-[12px] text-[hsl(var(--ink-muted))] leading-relaxed">
+          <div className="rounded-xl border border-border bg-[hsl(var(--surface))] p-3 text-[12px] text-[hsl(var(--ink-muted))] leading-relaxed">
             Внутренняя платформа банка для создания и запуска тренажёров.
           </div>
           <div className="flex items-center gap-2 mt-3 px-1 text-[13px]">
