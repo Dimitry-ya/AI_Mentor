@@ -335,7 +335,7 @@ export default function BuilderPage() {
                   className={`group flex items-center gap-2 h-9 px-3.5 rounded-full text-[13px] transition-all ${
                     active
                       ? "bg-primary/10 text-primary font-medium"
-                      : "text-[hsl(var(--ink-muted))] hover:bg-[hsl(216_20%_96%)]"
+                      : "text-[hsl(var(--ink-muted))] hover:bg-primary/[0.05] hover:text-[hsl(var(--ink))]"
                   }`}
                 >
                   <span

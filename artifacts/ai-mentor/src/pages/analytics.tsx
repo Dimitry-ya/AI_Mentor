@@ -34,7 +34,7 @@ import {
 import { toast } from "sonner";
 
 const STATUS_COLORS: Record<string, string> = {
-  Назначено: "hsl(220 9% 46%)",
+  Назначено: "hsl(220 13% 65%)",
   "В процессе": "hsl(34 94% 45%)",
   Завершено: "hsl(152 56% 38%)",
 };

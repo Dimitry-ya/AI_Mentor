@@ -28,13 +28,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group flex items-center gap-3 px-3 h-10 rounded-xl transition-colors text-[14px] ${
+                className={`group relative flex items-center gap-3 px-3 h-10 rounded-xl transition-colors text-[14px] ${
                   active
-                    ? "bg-[hsl(216_20%_94%)] text-[hsl(var(--ink))] font-medium"
-                    : "text-[hsl(var(--ink-muted))] hover:bg-[hsl(216_20%_96%)] hover:text-[hsl(var(--ink))]"
+                    ? "bg-primary/[0.08] text-primary font-semibold"
+                    : "text-[hsl(var(--ink-muted))] hover:bg-primary/[0.05] hover:text-[hsl(var(--ink))]"
                 }`}
               >
-                <item.icon className={`w-[18px] h-[18px] ${active ? "text-primary" : ""}`} />
+                {active && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-primary" />
+                )}
+                <item.icon className={`w-[18px] h-[18px] shrink-0 ${active ? "text-primary" : "text-[hsl(var(--ink-muted))]"}`} />
                 {item.label}
               </Link>
             );

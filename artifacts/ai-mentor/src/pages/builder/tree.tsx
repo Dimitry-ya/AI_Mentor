@@ -215,7 +215,7 @@ function Row({
   return (
     <div
       className={`group flex items-center gap-2 h-8 px-2 rounded-lg cursor-pointer ${
-        active ? "bg-primary/[0.07] text-foreground" : "hover:bg-[hsl(216_20%_96%)]"
+        active ? "bg-primary/[0.07] text-foreground" : "hover:bg-primary/[0.05]"
       }`}
       style={{ paddingLeft: 8 + indent * 16 }}
       onClick={onClick}
@@ -259,7 +259,7 @@ function Group({
     <div>
       <div
         className={`group flex items-center gap-1 h-8 rounded-lg cursor-pointer ${
-          active ? "bg-primary/[0.07] text-foreground" : "hover:bg-[hsl(216_20%_96%)]"
+          active ? "bg-primary/[0.07] text-foreground" : "hover:bg-primary/[0.05]"
         }`}
         style={{ paddingLeft: 4 + indent * 16, paddingRight: 6 }}
         onClick={onClick}

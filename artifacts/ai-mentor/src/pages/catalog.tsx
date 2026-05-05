@@ -279,32 +279,29 @@ function TrainingCard({
           </DropdownMenu>
         </div>
       </div>
-      <div className="p-4 flex flex-col gap-3 flex-1">
-        <div>
-          <button
-            onClick={onOpen}
-            className="font-semibold text-[15px] leading-snug text-left line-clamp-2 hover:text-primary transition-colors"
-          >
-            {t.name}
-          </button>
-          <div className="text-[12px] text-[hsl(var(--ink-muted))] mt-1 truncate">
-            {t.factory} · {t.direction} · {t.duration}
-          </div>
+      <div className="px-4 pt-4 pb-0 flex flex-col flex-1 min-h-0">
+        <button
+          onClick={onOpen}
+          className="font-semibold text-[15px] leading-snug text-left line-clamp-2 hover:text-primary transition-colors mb-1"
+        >
+          {t.name}
+        </button>
+        <div className="text-[12px] text-[hsl(var(--ink-muted))] truncate">
+          {t.factory} · {t.direction} · {t.duration}
         </div>
-        <div className="mt-auto flex items-center justify-between text-[12px]">
-          <div className="flex items-center gap-2 text-[hsl(var(--ink-muted))]">
+        <div className="mt-3 pt-3 pb-3 border-t border-border/60 flex items-center justify-between text-[12px]">
+          <div className="flex items-center gap-1.5 text-[hsl(var(--ink-muted))]">
             <span className={`am-dot ${STATUS_DOT[t.status]}`} />
             <span>{t.status}</span>
-            <span>·</span>
-            <span>Готовность {t.readiness}%</span>
+            <span className="mx-0.5 opacity-50">·</span>
+            <span>{t.readiness}%</span>
           </div>
-          <Button
-            variant="link"
-            size="sm"
+          <button
             onClick={onOpen}
+            className="text-[13px] font-medium text-primary hover:text-primary/80 transition-colors"
           >
-            Открыть
-          </Button>
+            Открыть →
+          </button>
         </div>
       </div>
     </div>
