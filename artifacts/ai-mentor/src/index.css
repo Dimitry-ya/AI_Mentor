@@ -61,7 +61,7 @@
   --foreground: 222 39% 11%;
 
   --ink: 222 39% 11%;          /* primary text #111827 */
-  --ink-muted: 220 9% 46%;     /* secondary text #6B7280 */
+  --ink-muted: 220 13% 38%;    /* secondary text — contrast ≥5.5:1 on bg, ≥6.5:1 on white */
   --surface: 0 0% 100%;        /* white cards */
 
   --card: 0 0% 100%;
@@ -80,7 +80,7 @@
   --secondary-foreground: 222 39% 11%;
 
   --muted: 216 20% 96%;
-  --muted-foreground: 220 9% 46%;
+  --muted-foreground: 220 13% 38%;
 
   --accent: 216 20% 96%;
   --accent-foreground: 222 39% 11%;

@@ -1,0 +1,270 @@
+Task: Fix low-contrast text across AI Mentor.
+
+Problem:
+Several text areas are too low-contrast and hard to read. Example:
+In "Карточка клиента", labels like:
+- "ДЕТАЛИ ПО КРЕДИТНОЙ КАРТЕ"
+- "Ближайший платёж"
+- "Общая задолженность на сегодня"
+- "Покупки с 31 дня и снятие наличных"
+- "Доступный лимит"
+- "Штрафы и неустойки"
+- "УСЛОВИЯ ДОГОВОРА"
+
+currently look too pale / gray-blue and are hard to scan on a white background.
+
+This must be fixed systemically, not only in this one card.
+
+Project path:
+artifacts/ai-mentor
+
+Design system source of truth:
+https://github.com/core-ds/core-components.git
+https://core-ds.github.io/core-components/master/
+
+Important:
+Use Core DS-compatible text tokens and semantic variables.
+Do not add random colors.
+Do not hardcode one-off hex colors unless no token exists and you document why.
+Do not change business logic, routes, data, localStorage keys, or backend.
+
+==================================================
+SCOPE
+==================================================
+
+Fix text contrast across:
+1. "Карточка клиента"
+2. Right inspector panel
+3. Left sidebar/tree
+4. Catalog cards
+5. Builder editor labels/helper text
+6. Section headings
+7. Status/help text
+8. Summary rows and key/value rows
+9. Modal/popup secondary text if it has the same issue
+
+Do not redesign screens.
+Do not change labels.
+Do not change layout unless required to improve readability.
+
+==================================================
+AUDIT FIRST
+==================================================
+
+Before editing, inspect all text color definitions.
+
+Search in artifacts/ai-mentor/src for:
+- text-gray
+- text-slate
+- text-zinc
+- text-neutral
+- text-muted
+- text-secondary
+- text-muted-foreground
+- color:
+- --muted
+- --muted-foreground
+- --text
+- --text-secondary
+- --foreground
+- --secondary-foreground
+- opacity-
+- className with text color utilities
+
+Also inspect:
+- artifacts/ai-mentor/src/index.css
+- typography/global CSS
+- shared Card/Panel components
+- client card component
+- right inspector component
+- sidebar/tree component
+- catalog card component
+- field/label components
+
+Before changing code, report:
+1. Where low-contrast text colors are defined.
+2. Which components use them.
+3. Which shared text tokens/classes should be fixed.
+4. Which local overrides must be removed.
+
+==================================================
+CONTRAST RULES
+==================================================
+
+Use these contrast targets:
+
+1. Normal body text:
+- must meet at least WCAG AA 4.5:1 contrast ratio against its background.
+
+2. Large/bold text:
+- must meet at least 3:1 contrast ratio.
+
+3. Non-text UI indicators/icons:
+- should meet at least 3:1 where they communicate meaning.
+
+4. Disabled text:
+- can be lower contrast, but must be clearly disabled and not used for normal readable content.
+
+5. Placeholder/helper text:
+- may be softer than primary text, but must still be readable.
+- Do not use placeholder-level contrast for labels or normal content.
+
+==================================================
+TEXT HIERARCHY
+==================================================
+
+Normalize text hierarchy:
+
+1. Primary text:
+Use for important values, titles, user-readable content.
+Must be high contrast.
+
+2. Secondary text:
+Use for labels, metadata, descriptions.
+Must still be readable.
+Do not make it too pale.
+
+3. Tertiary text:
+Use only for low-priority hints.
+Still should be legible.
+
+4. Disabled text:
+Use only for disabled/unavailable states.
+
+Important:
+Do not use disabled-looking gray for normal labels.
+In the current UI, many normal labels look disabled. Fix that.
+
+==================================================
+SPECIFIC FIX: CLIENT CARD
+==================================================
+
+For "Карточка клиента":
+
+1. Section headings:
+- "ДЕТАЛИ ПО КРЕДИТНОЙ КАРТЕ"
+- "УСЛОВИЯ ДОГОВОРА"
+
+must be more readable.
+They can remain secondary/uppercase, but contrast must be stronger.
+
+2. Field labels:
+- "Ближайший платёж"
+- "Общая задолженность на сегодня"
+- "Покупки с 31 дня и снятие наличных"
+- "Доступный лимит"
+- "Штрафы и неустойки"
+
+must not look disabled.
+Use readable secondary text color.
+
+3. Empty values like "—":
+Can be secondary, but must remain readable and aligned.
+
+4. Icons:
+Section icons must have enough contrast and align with headings.
+
+5. Do not make everything black.
+Preserve hierarchy:
+- headings and labels: readable secondary
+- values: stronger primary
+- disabled/missing states: softer but legible
+
+==================================================
+SYSTEMIC FIXES
+==================================================
+
+If the low contrast comes from a shared class or CSS variable, fix it there.
+
+Examples:
+- --muted-foreground too pale
+- text-muted-foreground too pale
+- text-secondary too pale
+- card label class too pale
+- inspector label class too pale
+- sidebar label class too pale
+
+Do not patch every element manually if a shared token/class controls the issue.
+
+Expected approach:
+1. Identify the shared source of low contrast.
+2. Adjust shared semantic token/class.
+3. Remove local overrides that use too-light colors.
+4. Verify all affected screens.
+
+==================================================
+DO NOT
+==================================================
+
+Do not:
+1. Change business logic.
+2. Change text content.
+3. Change routes.
+4. Change data.
+5. Touch backend/lib.
+6. Add random colors.
+7. Make all text pure black.
+8. Use opacity to fake hierarchy for important text.
+9. Use disabled text style for normal readable content.
+10. Fix only "Карточка клиента" while leaving same issue elsewhere.
+
+==================================================
+ACCEPTANCE CRITERIA
+==================================================
+
+1. "Карточка клиента" text is clearly readable.
+2. Normal labels no longer look disabled.
+3. Section headings are readable.
+4. Secondary text remains secondary but has enough contrast.
+5. Right inspector text remains readable.
+6. Sidebar/tree text remains readable.
+7. Catalog card metadata remains readable.
+8. Text hierarchy is preserved.
+9. No random color hacks were added.
+10. Shared tokens/classes were fixed where possible.
+11. Typecheck passes.
+12. Build passes.
+
+Run:
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+==================================================
+VISUAL QA
+==================================================
+
+Check:
+1. "Карточка клиента"
+2. Right inspector
+3. Left sidebar/tree
+4. Catalog cards
+5. Builder editor labels
+6. Helper text under fields
+7. Section headings
+8. Empty values
+9. Disabled states
+
+Confirm:
+- normal text is not pale
+- disabled text is only used for disabled states
+- hierarchy is still visible
+- text is easier to scan
+
+==================================================
+FINAL REPORT
+==================================================
+
+Report:
+1. Which low-contrast sources were found.
+2. Which files were changed.
+3. Which shared tokens/classes were updated.
+4. Which local text color overrides were removed.
+5. Whether "Карточка клиента" now has readable labels.
+6. Whether similar low-contrast text was fixed elsewhere.
+7. Whether typecheck passed.
+8. Whether build passed.
+9. Whether dev starts.
+10. Remaining contrast risks, if any.
+
+Stop after fixing text contrast only.
