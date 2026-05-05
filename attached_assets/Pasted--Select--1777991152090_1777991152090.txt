@@ -1,0 +1,61 @@
+Проблема: стиль Select слетел, а шрифт не применился ко всему проекту.
+
+Нужно не чинить отдельный экран, а восстановить глобальный foundation-слой проекта.
+
+1. Проверь style entrypoint:
+- main.tsx / App.tsx / layout.tsx
+- index.css / globals.css
+- подключение Core DS CSS/theme
+- подключение font-face / локального шрифта
+- порядок импортов CSS
+
+2. Шрифт:
+- применить шрифт глобально на html, body, #root
+- убедиться, что font-family наследуется всеми компонентами
+- учесть portal-слои: dropdown, modal, popover, select menu
+- не вешать шрифт только на внутренний wrapper приложения
+- проверить, что подключены нужные веса и кириллица
+- убрать конфликтующие font-family из локальных компонентов
+
+3. Select:
+- найти все кастомные Select / Dropdown / SelectTrigger / SelectContent / native select
+- заменить или привести к единому shared Select component
+- использовать Core DS Select / @alfalab/core-components-select, если он доступен в проекте
+- не использовать shadcn/native select для экранов AI Mentor
+- убрать Tailwind-переопределения, которые ломают внешний вид Select
+- привести trigger, menu, item, selected state, chevron, check icon к одному стилю
+- проверить Select внутри catalog filters, builder forms, right panel, modal
+
+4. CSS conflicts:
+- найти глобальные правила:
+  button
+  input
+  select
+  *
+  [role="combobox"]
+  [data-radix-*]
+  .select
+  .dropdown
+- удалить или сузить правила, которые перебивают Core DS
+- Tailwind utilities не должны ломать DS-компоненты
+
+5. Portal fix:
+- проверить, куда рендерятся dropdown/modal/popover
+- если они рендерятся в body, убедиться, что body имеет правильный font-family и CSS variables
+- dropdown menu должен выглядеть так же, как trigger, а не как отдельная библиотека
+
+6. Acceptance:
+- шрифт применён ко всему приложению, включая select dropdown, modal, popover
+- все селекты выглядят в одном стиле
+- catalog filters не отличаются от builder selects
+- dropdown не выглядит как чужой UI-kit
+- chevron и check icon выровнены
+- нет локальных костылей на одном экране
+- typecheck/build проходят
+
+Перед правками выведи короткий аудит:
+- где подключается глобальный CSS
+- где подключается шрифт
+- какой Select реально используется
+- какие CSS-правила перебивают Select
+- какие компоненты рендерятся через portal
