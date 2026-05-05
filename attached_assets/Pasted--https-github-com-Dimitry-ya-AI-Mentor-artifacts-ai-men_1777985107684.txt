@@ -1,0 +1,248 @@
+
+https://github.com/Dimitry-ya/AI_Mentor
+
+Основное приложение находится здесь:
+artifacts/ai-mentor
+
+Дизайн-система, под которую нужно привести интерфейс:
+https://github.com/core-ds/core-components
+https://core-ds.github.io/core-components/master/
+
+Задача:
+подтянуть стили и компоненты Core DS и переделать UI приложения так, чтобы оно визуально и технически соответствовало дизайн-системе.
+
+Важно:
+не просто добавить CSS или ссылку на дизайн-систему, а реально заменить текущий UI-слой на Core DS-компоненты там, где это возможно.
+
+Сейчас приложение визуально не соответствует Core DS, потому что интерфейс собран на Tailwind + shadcn/ui + Radix + локальных стилях.
+
+Нужно сделать аккуратную миграцию на Core DS.
+
+Ограничения:
+1. Не переписывай приложение с нуля.
+2. Не меняй бизнес-логику.
+3. Не меняй маршруты.
+4. Не удаляй seed-данные.
+5. Не ломай localStorage-ключ ai-mentor:v1.
+6. Не трогай backend/lib, если это не нужно для UI.
+7. Работай только с основным приложением artifacts/ai-mentor.
+8. Не делай хаотичный редизайн.
+9. Не добавляй случайные цвета, радиусы, тени, шрифты и отступы.
+10. Все визуальные решения должны быть основаны на Core DS.
+
+Перед началом:
+1. Изучи структуру проекта.
+2. Изучи package.json в корне и в artifacts/ai-mentor.
+3. Изучи текущие UI-компоненты в:
+   artifacts/ai-mentor/src/components/ui/
+4. Изучи текущие стили в:
+   artifacts/ai-mentor/src/index.css
+5. Изучи main.tsx.
+6. Изучи документацию Core DS:
+   https://core-ds.github.io/core-components/master/
+7. Изучи репозиторий Core DS:
+   https://github.com/core-ds/core-components
+
+Первый этап — подготовка Core DS:
+1. Установи нужные Core DS-пакеты в @workspace/ai-mentor:
+   - @alfalab/core-components-vars
+   - @alfalab/core-components-button
+   - @alfalab/core-components-input
+   - @alfalab/core-components-textarea
+   - @alfalab/core-components-select
+   - @alfalab/core-components-modal
+   - @alfalab/core-components-tabs
+   - @alfalab/core-components-tag
+   - @alfalab/core-components-badge
+   - @alfalab/core-components-status-badge
+   - @alfalab/core-components-table
+   - @alfalab/core-components-notification
+   - @alfalab/core-components-toast
+   - @alfalab/core-components-tooltip
+   - @alfalab/core-components-spinner
+
+2. Подключи Core DS variables в:
+   artifacts/ai-mentor/src/main.tsx
+
+Добавь импорт:
+
+import '@alfalab/core-components-vars/index.css';
+
+3. Проверь, что приложение запускается.
+
+Команды:
+pnpm install
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Проверки:
+pnpm --filter @workspace/ai-mentor run typecheck
+pnpm run build
+
+Второй этап — замена базовых компонентов:
+Используй compatibility layer.
+
+Это значит:
+не меняй сразу все импорты по страницам.
+Сначала перепиши локальные компоненты внутри:
+artifacts/ai-mentor/src/components/ui/
+
+Так, чтобы старые импорты продолжили работать:
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+Но внутри этих файлов уже должны использоваться Core DS-компоненты.
+
+Замени:
+
+1. button.tsx
+   Текущий shadcn Button заменить на Core DS Button.
+   Использовать @alfalab/core-components-button.
+
+2. input.tsx
+   Текущий input заменить на Core DS Input.
+   Использовать @alfalab/core-components-input.
+
+3. textarea.tsx
+   Текущий textarea заменить на Core DS Textarea.
+   Использовать @alfalab/core-components-textarea.
+
+4. select.tsx
+   Текущий Radix Select заменить на Core DS Select.
+   Использовать @alfalab/core-components-select.
+
+5. tabs.tsx
+   Текущий Radix Tabs заменить на Core DS Tabs.
+   Использовать @alfalab/core-components-tabs.
+
+6. dialog.tsx / drawer.tsx / sheet.tsx
+   Заменить на Core DS Modal или подходящий overlay-компонент из Core DS.
+
+7. badge.tsx
+   Заменить на Core DS Tag, Badge или StatusBadge.
+
+8. table.tsx
+   Заменить на Core DS Table, если подходит.
+   Если API сильно отличается, оставить локальную таблицу, но привести стили к Core DS-токенам.
+
+Третий этап — привести экраны к Core DS:
+Проверь и переделай UI следующих экранов:
+
+1. Каталог
+   - поиск;
+   - фильтры;
+   - карточки обучений;
+   - статусы;
+   - empty state;
+   - loading state;
+   - error state.
+
+2. Builder
+   - верхний stepper;
+   - боковую навигацию;
+   - формы;
+   - блоки сценария;
+   - кнопки действий;
+   - модалки;
+   - состояния ошибок.
+
+3. Preview / Sandbox / Learner
+   - экран старта;
+   - карточки заданий;
+   - варианты ответов;
+   - подсказки;
+   - финальный экран;
+   - прогресс;
+   - состояния проверки.
+
+4. Analytics
+   - KPI-карточки;
+   - графики;
+   - таблицы;
+   - фильтры;
+   - пустые состояния.
+
+5. Admin / Access
+   - таблицу пользователей;
+   - фильтры;
+   - bulk actions;
+   - роли;
+   - статусы;
+   - protected owner row.
+
+Правила визуального стиля:
+1. Интерфейс должен выглядеть как enterprise web-приложение банка.
+2. Визуальный стиль — чистый, строгий, спокойный.
+3. Убрать лишний декоративный шум.
+4. Использовать системные размеры, отступы, радиусы и цвета Core DS.
+5. Не использовать случайные Tailwind-цвета вроде bg-red-500, text-slate-700 и т.п., если есть DS-токены.
+6. Не использовать кастомные тени и радиусы, если можно взять из DS.
+7. Не смешивать shadcn-style и Core DS-style в одном компоненте.
+8. Все hover, active, disabled, focus-состояния должны выглядеть системно.
+9. Ошибки, предупреждения и success-состояния должны быть оформлены через компоненты или токены Core DS.
+10. UI должен быть аккуратным, плотным, но не перегруженным.
+
+Stepper в builder:
+Упростить stepper в верхней части builder.
+Убрать дополнительную иконку статуса внутри активного шага.
+Оставить только:
+- номер шага;
+- название шага;
+- активное состояние;
+- при необходимости тонкий разделитель между шагами.
+
+Не использовать отдельные зелёные check-иконки внутри stepper.
+
+Статус готовности шага показывать не иконкой, а через:
+- цвет шага;
+- состояние текста;
+- общий статус блока в интерфейсе.
+
+Stepper должен выглядеть чище, компактнее и ближе к enterprise UI банка.
+
+Пример:
+1 Онбординг
+2 Теория
+3 Практика
+4 Завершение
+
+Без лишней иконки справа от названия шага.
+
+Важно по компонентам:
+Если прямого аналога в Core DS нет:
+1. Не выдумывай новый визуальный стиль.
+2. Оставь локальный компонент.
+3. Перепиши его стили на Core DS-токены.
+4. Документируй, почему компонент остался локальным.
+
+Что нужно удалить или сократить:
+1. Убрать лишние локальные CSS-переменные, которые конфликтуют с Core DS.
+2. Убрать дублирующие стили shadcn/ui там, где компонент заменён на Core DS.
+3. Убрать визуальные паттерны, которые не похожи на Core DS.
+4. Не удалять Tailwind полностью, если он нужен для layout, но не использовать его для стилизации базовых DS-компонентов.
+
+Работай поэтапно:
+1. Сначала сделай аудит UI.
+2. Потом установи Core DS и подключи vars.
+3. Потом замени базовые компоненты.
+4. Потом проверь сборку.
+5. Потом переходи к экранам.
+6. После каждого крупного изменения запускай проверки.
+
+После каждого этапа запускай:
+pnpm --filter @workspace/ai-mentor run typecheck
+pnpm run build
+
+В финале дай отчет:
+
+1. Какие Core DS-пакеты добавлены.
+2. Какие компоненты заменены.
+3. Какие компоненты остались локальными.
+4. Какие экраны приведены к Core DS.
+5. Какие стили удалены или заменены.
+6. Что осталось доработать.
+7. Есть ли ошибки typecheck/build.
+8. Какие файлы были изменены.
+
+Начни с аудита и подготовки Core DS.
+Не переделывай всё приложение одним большим изменением.
