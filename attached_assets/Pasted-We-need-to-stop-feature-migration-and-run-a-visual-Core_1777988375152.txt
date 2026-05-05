@@ -1,0 +1,202 @@
+We need to stop feature migration and run a visual Core DS stabilization pass.
+
+Context:
+The app now runs, and basic Core DS packages are connected, but after migration several visual regressions appeared.
+
+Problems visible in the UI:
+1. Selects do not look like Core DS Select.
+2. Some form fields still have custom red borders and do not look like Core DS FormControl.
+3. Typography looks inconsistent with Core DS.
+4. Sidebar/tree navigation does not look aligned with the design system.
+5. Header action buttons are visually broken: spacing, icon alignment, text size, button height and badge placement are off.
+6. Some colors are still local/custom and not tied to Core DS tokens.
+7. Dropdown/context menus look partially custom.
+8. Builder right inspector has spacing, colors and state issues.
+9. Valid filled fields must not show red error borders.
+10. Error states must be systematic, not custom Tailwind red outlines.
+
+Core DS source of truth:
+https://github.com/core-ds/core-components
+https://core-ds.github.io/core-components/master/
+
+Important:
+Core DS means the actual @alfalab/core-components package family.
+Do not imitate Core DS with local CSS.
+Local CSS can be used only for layout and composition, not for replacing Core DS component visual states.
+
+Main app path:
+artifacts/ai-mentor
+
+Do not:
+1. Do not rewrite the app from scratch.
+2. Do not change routes.
+3. Do not change business logic.
+4. Do not change localStorage key ai-mentor:v1.
+5. Do not remove seed data.
+6. Do not touch backend/lib.
+7. Do not redesign the product concept.
+8. Do not add random hex colors, shadows, radii or font sizes.
+9. Do not use Tailwind border/background/radius/focus/ring classes to style Core DS controls.
+10. Do not continue broad component migration until the visual regressions are fixed.
+
+Goal:
+Make the current UI visually consistent with Core DS while preserving existing UX and logic.
+
+Screens/zones to inspect:
+1. Catalog page:
+   - search input;
+   - type/status selects;
+   - dropdown menu on training cards;
+   - cards;
+   - badges/status labels.
+
+2. Builder page:
+   - left sidebar structure tree;
+   - top action bar with "Предпросмотр", "Проверить", "Опубликовать";
+   - step/status indicator;
+   - form fields;
+   - A-Book rubric select;
+   - right inspector;
+   - problems list;
+   - AI hints block;
+   - disabled "AI-помощник" button.
+
+3. Shared components:
+   - button.tsx
+   - input.tsx
+   - textarea.tsx
+   - select.tsx
+   - field.tsx
+   - badge.tsx
+   - dropdown/menu/popover components if used
+   - sidebar/tree components if present
+   - index.css
+
+Phase 1 — audit before changing:
+1. Find all native <input>, <textarea>, <select>, <button> in artifacts/ai-mentor/src.
+2. Find all imports from "@/components/ui/input", "@/components/ui/button", "@/components/ui/select", "@/components/ui/textarea", "@/components/ui/badge".
+3. Find Tailwind classes that override Core DS visuals:
+   - border
+   - border-red
+   - bg-white
+   - bg-gray
+   - rounded
+   - h-*
+   - px-*
+   - py-*
+   - ring
+   - focus:ring
+   - shadow
+   - text-* when applied to Core DS controls
+4. Identify which of these classes are layout-only and which break Core DS visuals.
+5. Do not change code until this audit is complete.
+
+Phase 2 — fix form controls:
+1. Ensure Input uses actual @alfalab/core-components-input.
+2. Ensure Textarea uses actual @alfalab/core-components-textarea.
+3. Ensure Button uses actual @alfalab/core-components-button.
+4. Ensure Select uses actual @alfalab/core-components-select or the closest correct Core DS package.
+5. Ensure Core DS vars are imported globally:
+
+import '@alfalab/core-components-vars/index.css';
+
+6. Do not rely only on local index.css variables.
+7. Do not deep-import fragile internal CSS paths unless absolutely required and documented.
+8. Remove className overrides that break Core DS appearance.
+9. Keep old imports working through compatibility wrappers.
+10. Preserve form behavior: value, defaultValue, onChange, onBlur, onFocus, name, disabled, placeholder.
+
+Form validation rules:
+1. A filled valid field must not show a red border.
+2. Required field error should appear only after blur, submit, or explicit validation.
+3. Error state should use Core DS error/block/errorMessage API or the closest supported API.
+4. Do not use custom Tailwind red border as the main error UI.
+5. Helper/error text must be aligned with the field and styled through Core DS behavior or Core DS tokens.
+
+Phase 3 — fix Selects:
+1. The Catalog filters "Любой тип" and "Любой статус" must look like Core DS Select.
+2. The Builder "Рубрика A-Book" select must look like Core DS Select.
+3. Dropdown list must use Core DS-like spacing, typography and selection state.
+4. Remove custom oversized borders and incorrect red outlines from valid selects.
+5. Preserve current options and filter logic.
+6. Do not change data or business rules.
+
+Phase 4 — fix action buttons:
+1. Top action buttons must have correct height, spacing and icon alignment.
+2. "Предпросмотр" and "Проверить" should look like secondary/outlined actions.
+3. "Опубликовать" should look like the primary action.
+4. The red count badge in "Проверить 6" must not break button alignment.
+5. Icons must align vertically with text.
+6. Do not manually style buttons with random borders/backgrounds.
+7. Use Core DS Button props/views/sizes where possible.
+
+Phase 5 — fix sidebar/tree navigation:
+1. Keep the current tree structure and expand/collapse behavior.
+2. Reduce visual noise.
+3. Align text sizes, icon sizes, spacing and status dots to Core DS feel.
+4. Status dots must be consistent and not randomly placed.
+5. Active/selected/error states must be readable but not overly aggressive.
+6. Do not use large custom red blobs unless they are meaningful status indicators.
+7. Keep enterprise banking UI: clean, compact, calm.
+
+Phase 6 — fix colors and typography:
+1. Remove random custom colors where Core DS tokens or existing DS variables can be used.
+2. Do not hardcode new hex colors unless there is no token and you document why.
+3. Typography should be consistent across headings, labels, helper text, buttons and menus.
+4. Do not override typography inside Core DS components unless required.
+5. Ensure the UI looks like a calm enterprise banking web app, not a mixed shadcn/Tailwind/Core DS interface.
+
+Phase 7 — fix dropdown/context menus:
+1. Card action menu must be aligned, compact and consistent.
+2. Menu item icon/text spacing must be stable.
+3. Destructive action "Удалить" should be visually distinct but not break the menu style.
+4. Menu shadows/radii/colors should use Core DS tokens or existing DS-compatible variables.
+5. Do not overdecorate.
+
+Acceptance criteria:
+1. Catalog search/selects look visually consistent.
+2. Builder form fields look like Core DS controls.
+3. Valid fields do not show red borders.
+4. Select dropdowns look consistent with Core DS.
+5. Top action buttons no longer have broken spacing/height/icon alignment.
+6. Sidebar/tree navigation is calmer and more systematic.
+7. Right inspector spacing and colors are cleaner.
+8. No new route or business logic changes.
+9. No random Tailwind visual overrides on Core DS controls.
+10. No new broad dependency set unless strictly required.
+
+After each meaningful change run:
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+
+After all fixes run:
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Visual QA checklist:
+1. Open Catalog.
+2. Check search input.
+3. Open type/status selects.
+4. Open training card action menu.
+5. Open Builder.
+6. Check left sidebar tree.
+7. Check top action buttons.
+8. Check field "Название раздела *".
+9. Check select "Рубрика A-Book".
+10. Check right inspector.
+11. Check disabled AI helper button.
+12. Check console for runtime errors.
+
+Final report:
+1. What visual issues were found.
+2. Which files were changed.
+3. Which Core DS components are now used.
+4. Which Tailwind overrides were removed.
+5. Which local styles remain and why.
+6. Whether typecheck passed.
+7. Whether ai-mentor build passed.
+8. Whether dev workflow starts.
+9. What visual risks remain.
+10. Recommended next phase.
+
+Stop after visual stabilization.
+Do not start new feature work.
