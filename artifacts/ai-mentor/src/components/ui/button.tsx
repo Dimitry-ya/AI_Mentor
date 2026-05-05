@@ -83,7 +83,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={className}
         {...(props as any)}
       >
-        {children}
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+          {children}
+        </span>
       </AlfalabButton>
     )
   }
