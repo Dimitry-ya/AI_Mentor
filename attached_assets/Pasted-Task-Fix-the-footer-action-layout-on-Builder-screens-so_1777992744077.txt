@@ -1,0 +1,183 @@
+Task: Fix the footer action layout on Builder screens so the navigation buttons match DS and are grouped correctly.
+
+Project path:
+artifacts/ai-mentor
+
+Screens affected:
+Builder / step-by-step editor screens we already fixed:
+- Онбординг
+- Теория
+- Практика
+- Завершение
+and similar step-based creation/editing screens with the footer navigation.
+
+Current problem:
+- The "Назад" button is visually too small / inconsistent compared to "Далее"
+- The "Назад" button is too far away from "Далее"
+- They do not look like a single navigation action group
+- Footer composition is weak and does not follow good UI/UX practice
+
+Required UX fix:
+"Назад" and "Далее" must be treated as one navigation cluster.
+
+==================================================
+REQUIRED CHANGES
+==================================================
+
+1. GROUP THE BUTTONS TOGETHER
+- Move "Назад" closer to "Далее"
+- These two buttons must sit next to each other in one horizontal action group
+- Do NOT keep "Назад" on the far left and "Далее" on the far right
+- The action group should be aligned to the right side of the footer
+- Keep a normal gap between them (for example ~12–16px, depending on existing spacing scale)
+- The buttons must read as one related control group
+
+Target:
+[Назад] [Далее]
+
+not:
+[Назад...............................................Далее]
+
+2. MAKE BUTTON SIZES CONSISTENT
+- "Назад" must match the DS sizing pattern used for footer controls
+- "Назад" and "Далее" must have the same height
+- Their internal vertical alignment must match
+- Text and icons must be vertically centered
+- Padding must be consistent with DS
+- Border radius must match DS
+- Use the shared Button component / Core DS wrapper, not custom ad hoc styling
+
+Important:
+The buttons do NOT need to have the same visual variant:
+- "Назад" = secondary
+- "Далее" = primary
+But they must still feel like paired controls with the same height and proper alignment.
+
+3. FIX ICON SPACING / ALIGNMENT
+- Check icon + text spacing in both buttons
+- Ensure left/right chevron or arrow is aligned properly
+- Ensure icon is not sitting too low or too high
+- Ensure text baseline is not shifted
+- Ensure icon-to-text gap follows DS spacing tokens
+
+4. FIX FOOTER LAYOUT
+- Footer should contain a right-aligned action group for step navigation
+- The footer should not visually stretch actions to opposite edges if there are only 2 related actions
+- Keep the footer clean and predictable across all builder steps
+- Use the same layout on all step screens
+
+5. APPLY TO ALL RELEVANT STEP SCREENS
+This is not a one-screen patch.
+Apply the footer button layout fix to all relevant builder/editing step screens where:
+- "Назад" exists
+- "Далее" exists
+- similar navigation actions exist
+
+That includes the flow we already discussed:
+- creation flow
+- editing flow
+- trainer flow
+- exam flow
+if they share the same footer/action bar component
+
+==================================================
+DESIGN / UX RULES
+==================================================
+
+- Related actions must be visually grouped
+- Primary and secondary step actions must be near each other
+- The next step should be obvious
+- The user should not need to scan the entire footer width
+- Footer actions must be consistent across steps
+- Use DS components, DS sizes, DS spacing, DS icon alignment
+
+==================================================
+DO NOT CHANGE
+==================================================
+
+Do not change:
+- step navigation logic
+- validation logic
+- labels
+- routing
+- business logic
+- autosave behavior
+- publish flow
+
+This task is only about:
+- footer action placement
+- button size consistency
+- grouping
+- spacing
+- alignment
+
+==================================================
+FILES TO INSPECT
+==================================================
+
+Inspect:
+1. Builder footer / sticky footer component
+2. Shared button wrapper used in the project
+3. Any layout container controlling left/right footer alignment
+4. Step screens that render navigation controls
+
+Before editing, identify:
+- the footer component file
+- the button component/wrapper used there
+- where the current layout pushes "Назад" and "Далее" apart
+
+==================================================
+ACCEPTANCE CRITERIA
+==================================================
+
+1. "Назад" and "Далее" are visually grouped in one cluster
+2. Both buttons are located next to each other
+3. The action cluster is aligned to the right side of the footer
+4. "Назад" no longer sits far away from "Далее"
+5. "Назад" and "Далее" have the same height
+6. Icon/text alignment is correct in both buttons
+7. Spacing between the two buttons is clean and consistent
+8. The same fix is applied across all relevant builder step screens
+9. No business logic changed
+10. Typecheck passes
+11. Build passes
+
+==================================================
+VALIDATION COMMANDS
+==================================================
+
+Run:
+
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+==================================================
+MANUAL QA
+==================================================
+
+Check manually:
+1. Open builder step 1
+2. Confirm "Назад" and "Далее" are next to each other
+3. Confirm both buttons have the same height
+4. Confirm "Назад" uses secondary style and "Далее" primary style
+5. Confirm icons are centered
+6. Go to step 2 / 3 / 4
+7. Confirm the footer layout stays consistent on all steps
+8. Confirm no logic/regression in navigation
+
+==================================================
+FINAL REPORT
+==================================================
+
+Report:
+1. Which files were changed
+2. How the footer layout was changed
+3. How button sizing was normalized
+4. How icon alignment was fixed
+5. Which screens now use the corrected footer action cluster
+6. Whether typecheck passed
+7. Whether build passed
+8. Whether dev server starts
+
+Stop after this footer layout fix.
