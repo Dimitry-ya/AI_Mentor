@@ -60,8 +60,12 @@ publish, and run training units (Тренажёры and Экзамены).
   (employee management with bulk role/status/delete, protected owner row)
 
 ### Core DS (alfalab) integration notes
-- `button.tsx` wraps `@alfalab/core-components-button`: `default`→`accent`,
-  `outline`→`outlined`, `secondary`→`secondary`, `ghost`→`transparent`, `link`→`text`
+- `button.tsx` wraps `@alfalab/core-components-button`. Correct view mapping:
+  `default`→`accent` (brand red CTA), `destructive`→`accent`, `outline`→`outlined`,
+  `secondary`→`secondary`, `ghost`→`transparent`, `link`→`text`.
+  NOTE: Core DS `view="primary"` = dark/black; `view="accent"` = brand-color CTA.
+  Do NOT add visual Tailwind classes (text-*, h-*, bg-*) to Button className — they
+  fight Core DS styles. Layout classes (gap-*, w-full, mt-*, ml-*) are safe.
 - `input.tsx` wraps `@alfalab/core-components-input`: strips `h-*`/`bg-*`/`pl-*`
   from className; bridges HTMLInput.onChange to alfalab's ChangeEvent; `pl-*` goes
   to `inputClassName`; `block=true` always. Pass `size={32|40|48}` for height.

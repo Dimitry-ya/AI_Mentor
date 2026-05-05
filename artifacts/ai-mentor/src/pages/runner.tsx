@@ -106,7 +106,7 @@ export function RunnerPage({ mode }: { mode: RunnerMode }) {
         <Button
           variant="outline"
           size="sm"
-          className="gap-1 text-[hsl(var(--ink-muted))]"
+          className="gap-1"
           onClick={() =>
             setLocation(mode === "learner" ? "/catalog" : `/builder/${id}`)
           }
@@ -559,7 +559,7 @@ function EvaluationCard({ ev, q }: { ev: EvalResult; q: Question }) {
   void q;
   return (
     <div className="mt-5 rounded-2xl border border-border overflow-hidden">
-      <div className="px-4 py-3 bg-[hsl(216_20%_98%)] border-b border-border flex items-center justify-between">
+      <div className="px-4 py-3 bg-[hsl(var(--surface))] border-b border-border flex items-center justify-between">
         <div className="text-[13px] font-medium flex items-center gap-1.5">
           <CheckCircle2 className="w-4 h-4 text-primary" />
           Результат проверки

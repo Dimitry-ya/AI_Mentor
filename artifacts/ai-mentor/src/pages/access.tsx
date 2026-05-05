@@ -174,7 +174,7 @@ export default function AccessPage() {
                 <Button
                   size="sm"
                   variant="secondary"
-                  className="h-8 gap-1.5"
+                  className="gap-1.5"
                   onClick={() => {
                     bulkSetStatus(Array.from(selectedIds), "Заблокирован");
                     toast("Сотрудники заблокированы");
@@ -185,7 +185,7 @@ export default function AccessPage() {
                 <Button
                   size="sm"
                   variant="secondary"
-                  className="h-8 gap-1.5"
+                  className="gap-1.5"
                   onClick={() => {
                     bulkSetStatus(Array.from(selectedIds), "Активен");
                     toast.success("Сотрудники активированы");
@@ -196,7 +196,7 @@ export default function AccessPage() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-8 gap-1.5 text-error border-error/30 hover:bg-error/5"
+                  className="gap-1.5"
                   onClick={handleBulkDelete}
                 >
                   <Trash2 className="w-3.5 h-3.5" /> Удалить
@@ -205,7 +205,7 @@ export default function AccessPage() {
               <Button
                 variant="outline"
                 size="sm"
-                className="ml-auto h-8"
+                className="ml-auto"
                 onClick={() => setSelectedIds(new Set())}
               >
                 Снять выбор
@@ -215,7 +215,7 @@ export default function AccessPage() {
 
           <div className="overflow-x-auto">
             <table className="w-full text-[13px]">
-              <thead className="bg-[hsl(216_20%_98%)] text-[12px] uppercase tracking-wide text-[hsl(var(--ink-muted))]">
+              <thead className="bg-[hsl(var(--surface))] text-[12px] uppercase tracking-wide text-[hsl(var(--ink-muted))]">
                 <tr>
                   <th className="text-left px-4 py-2.5 w-10">
                     <input
@@ -325,7 +325,7 @@ function EmployeeRow({
     .join("")
     .toUpperCase();
   return (
-    <tr className="hover:bg-[hsl(216_20%_98%)]">
+    <tr className="hover:bg-[hsl(var(--surface))]">
       <td className="px-4 py-2.5">
         {e.protected ? (
           <Lock className="w-3.5 h-3.5 text-[hsl(var(--ink-muted))]" />

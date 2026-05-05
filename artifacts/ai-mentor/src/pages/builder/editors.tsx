@@ -276,7 +276,7 @@ export function TheoryEditor({
         </div>
       </Field>
 
-      <div className="rounded-xl border border-border bg-[hsl(216_20%_98%)] p-4">
+      <div className="rounded-xl border border-border bg-[hsl(var(--surface))] p-4">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2 text-[13px] font-medium">
             <Wand2 className="w-4 h-4 text-primary" />
@@ -504,7 +504,7 @@ export function CaseEditor({
       </Field>
 
       <div className="rounded-xl border border-border overflow-hidden">
-        <div className="px-4 py-2.5 bg-[hsl(216_20%_98%)] border-b border-border text-[13px] font-medium flex items-center gap-2">
+        <div className="px-4 py-2.5 bg-[hsl(var(--surface))] border-b border-border text-[13px] font-medium flex items-center gap-2">
           <CreditCard className="w-4 h-4 text-primary" /> Карточка клиента
         </div>
         <div className="divide-y">
@@ -657,7 +657,7 @@ export function QuestionEditor({
       </div>
 
       <div className="rounded-xl border border-border overflow-hidden">
-        <div className="px-4 py-2.5 bg-[hsl(216_20%_98%)] border-b border-border text-[13px] font-medium flex items-center justify-between">
+        <div className="px-4 py-2.5 bg-[hsl(var(--surface))] border-b border-border text-[13px] font-medium flex items-center justify-between">
           <span className="flex items-center gap-2">
             <ListChecks className="w-4 h-4 text-primary" /> Критерии оценки *
           </span>
@@ -714,7 +714,7 @@ export function QuestionEditor({
       </div>
 
       <div className="rounded-xl border border-border overflow-hidden">
-        <div className="px-4 py-2.5 bg-[hsl(216_20%_98%)] border-b border-border text-[13px] font-medium flex items-center gap-2">
+        <div className="px-4 py-2.5 bg-[hsl(var(--surface))] border-b border-border text-[13px] font-medium flex items-center gap-2">
           <Lightbulb className="w-4 h-4 text-primary" /> Подсказки
         </div>
         <div className="p-4 space-y-2">

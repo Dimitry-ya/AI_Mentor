@@ -252,7 +252,7 @@ export function Wizard({ isOpen, onClose }: WizardProps) {
                           className={`w-full text-left px-4 py-3 flex items-center gap-3 transition-colors ${
                             templateId === tpl.id
                               ? "bg-primary/[0.04]"
-                              : "hover:bg-[hsl(216_20%_98%)]"
+                              : "hover:bg-[hsl(var(--surface))]"
                           }`}
                         >
                           <div className="w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
@@ -363,7 +363,7 @@ export function Wizard({ isOpen, onClose }: WizardProps) {
                     )}
                   </div>
                   <div className="flex-1 space-y-2">
-                    <label className="inline-flex items-center gap-2 cursor-pointer rounded-lg border border-border px-3 h-9 text-[13px] hover:bg-[hsl(216_20%_98%)]">
+                    <label className="inline-flex items-center gap-2 cursor-pointer rounded-lg border border-border px-3 h-9 text-[13px] hover:bg-[hsl(var(--surface))]">
                       <Upload className="w-4 h-4" />
                       Загрузить
                       <input
@@ -398,7 +398,7 @@ export function Wizard({ isOpen, onClose }: WizardProps) {
           )}
         </div>
 
-        <div className="px-6 py-4 border-t border-border bg-[hsl(216_20%_98%)] flex items-center justify-between gap-3">
+        <div className="px-6 py-4 border-t border-border bg-[hsl(var(--surface))] flex items-center justify-between gap-3">
           <Button variant="outline" onClick={onClose}>Отмена</Button>
           <div className="flex items-center gap-2">
             {step > 1 && (

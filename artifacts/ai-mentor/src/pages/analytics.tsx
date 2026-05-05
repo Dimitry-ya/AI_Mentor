@@ -248,7 +248,7 @@ export default function Analytics() {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-[13px]">
-              <thead className="bg-[hsl(216_20%_98%)] text-[12px] uppercase tracking-wide text-[hsl(var(--ink-muted))]">
+              <thead className="bg-[hsl(var(--surface))] text-[12px] uppercase tracking-wide text-[hsl(var(--ink-muted))]">
                 <tr>
                   <th className="text-left px-4 py-2.5 font-medium">Сотрудник</th>
                   <th className="text-left px-4 py-2.5 font-medium">Обучение</th>
@@ -272,7 +272,7 @@ export default function Analytics() {
                     const emp = employees.find((e) => e.id === a.employeeId);
                     const tr = trainings.find((t) => t.id === a.trainingId);
                     return (
-                      <tr key={a.id} className="hover:bg-[hsl(216_20%_98%)]">
+                      <tr key={a.id} className="hover:bg-[hsl(var(--surface))]">
                         <td className="px-4 py-2.5">
                           <div className="font-medium">{emp?.name ?? "—"}</div>
                           <div className="text-[11px] text-[hsl(var(--ink-muted))]">{emp?.tabel}</div>
@@ -293,7 +293,7 @@ export default function Analytics() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="gap-1 text-[12px] h-7"
+                            className="gap-1"
                             onClick={() => {
                               resetAttempt(a.id);
                               toast("Попытка сброшена");

@@ -32,7 +32,7 @@ export function Inspector({ training, selected, report, onJump }: Props) {
         <div className="text-[12px] uppercase tracking-wide text-[hsl(var(--ink-muted))] mb-2">
           AI-подсказки
         </div>
-        <div className="rounded-xl bg-[hsl(216_20%_98%)] border border-border p-3 text-[13px] leading-relaxed">
+        <div className="rounded-xl bg-[hsl(var(--surface))] border border-border p-3 text-[13px] leading-relaxed">
           {currentTip(selected, training)}
         </div>
       </div>
@@ -91,7 +91,7 @@ export function Inspector({ training, selected, report, onJump }: Props) {
                 <button
                   key={i}
                   onClick={() => onJump(e.target)}
-                  className="w-full text-left text-[12.5px] rounded-lg border border-border px-2.5 py-2 hover:border-primary/50 hover:bg-[hsl(216_20%_98%)] transition-colors flex gap-2"
+                  className="w-full text-left text-[12.5px] rounded-lg border border-border px-2.5 py-2 hover:border-primary/50 hover:bg-[hsl(var(--surface))] transition-colors flex gap-2"
                 >
                   <ListChecks className="w-3.5 h-3.5 text-error mt-0.5 shrink-0" />
                   <span className="leading-snug">{e.message}</span>

@@ -45,13 +45,13 @@ const VARIANT_TO_VIEW: Record<
   string,
   "accent" | "primary" | "secondary" | "outlined" | "transparent" | "text"
 > = {
-  default: "primary",
+  default: "accent",
   destructive: "accent",
   outline: "outlined",
   secondary: "secondary",
   ghost: "transparent",
   link: "text",
-  accent: "primary",
+  accent: "accent",
 }
 
 const SIZE_TO_NUM: Record<string, 32 | 40 | 48 | 56 | 64 | 72> = {

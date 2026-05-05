@@ -299,9 +299,8 @@ function TrainingCard({
             <span>Готовность {t.readiness}%</span>
           </div>
           <Button
-            variant="ghost"
+            variant="link"
             size="sm"
-            className="h-7 px-2 text-primary hover:bg-primary/5"
             onClick={onOpen}
           >
             Открыть
