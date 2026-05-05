@@ -73,5 +73,11 @@
     "vite": "catalog:",
     "wouter": "^3.3.5",
     "zod": "catalog:"
+  },
+  "dependencies": {
+    "@alfalab/core-components-button": "13.1.1",
+    "@alfalab/core-components-config": "1.1.0",
+    "@alfalab/core-components-input": "17.1.3",
+    "@alfalab/core-components-textarea": "10.0.4"
   }
 }

@@ -1,0 +1,71 @@
+Stop.
+
+There is a misunderstanding.
+
+Core DS is NOT the local design system in index.css.
+
+Core DS means the external design system:
+https://github.com/core-ds/core-components
+https://core-ds.github.io/core-components/master/
+
+The local index.css may contain compatibility tokens and layout helpers, but it must not be treated as the source of truth for Core DS.
+
+Do not solve the issue by only adding local CSS variables like --button-outline, --badge-outline, --elevate-1/2 or --primary-border.
+
+The goal is not to imitate Core DS with local CSS.
+The goal is to use actual Core DS React components where possible.
+
+Current visual problem:
+The Builder input "Название раздела *" still looks like a custom Tailwind input with red border, not like a Core DS Input/FormControl.
+
+New focused task:
+Fix only Input/Textarea/Button visual compliance with actual Core DS.
+
+Scope:
+1. artifacts/ai-mentor/src/components/ui/input.tsx
+2. artifacts/ai-mentor/src/components/ui/textarea.tsx
+3. artifacts/ai-mentor/src/components/ui/button.tsx
+4. The Builder file that renders "Название раздела *"
+5. Only necessary CSS cleanup in artifacts/ai-mentor/src/index.css
+
+Important:
+1. Do not migrate Select/Tabs/Badge now.
+2. Do not redesign screens.
+3. Do not change routes.
+4. Do not change business logic.
+5. Do not change localStorage key ai-mentor:v1.
+6. Do not remove seed data.
+7. Do not touch backend/lib.
+8. Do not replace Core DS with local CSS imitation.
+
+Required checks:
+1. Confirm that input.tsx imports and renders @alfalab/core-components-input.
+2. Confirm that textarea.tsx imports and renders @alfalab/core-components-textarea.
+3. Confirm that button.tsx imports and renders @alfalab/core-components-button.
+4. Find whether Builder uses native <input> instead of "@/components/ui/input".
+5. Find whether Builder passes Tailwind classes that override Core DS borders, radius, background, height or focus styles.
+6. Remove/avoid className overrides that break Core DS appearance.
+7. Make the field "Название раздела *" render through the Core DS-backed Input wrapper.
+8. If error state exists, map it to Core DS error/block/errorMessage props or the closest available API.
+9. Do not show error state immediately on a filled valid field.
+10. If the field has a valid value, it must not have a red border.
+
+Expected result:
+The field "Название раздела *" should visually look like a Core DS Input/FormControl, not like a custom Tailwind input.
+
+After changes run:
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+At the end report:
+1. What caused the input to look non-Core DS
+2. Whether actual Core DS components are used
+3. Which local CSS overrides were removed or kept
+4. Whether the Builder input now uses Core DS Input
+5. Whether typecheck passed
+6. Whether build passed
+7. Whether dev starts
+8. Whether it is safe to continue Select/Tabs/Badge migration
+
+Stop after fixing form controls.

@@ -1,18 +1,31 @@
 import * as React from "react"
-
-import { cn } from "@/lib/utils"
+import { Input as AlfalabInput } from "@alfalab/core-components-input"
 
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, onChange, value, type, ...rest }, ref) => {
+    const classes = (className ?? "").split(" ").filter(Boolean)
+    const inputCls = classes.filter((c) => /^pl-/.test(c)).join(" ")
+    const rootCls = classes
+      .filter((c) => !/^(h-\d|bg-|pl-)/.test(c))
+      .join(" ")
+
+    const handleChange = onChange
+      ? (
+          event: React.ChangeEvent<HTMLInputElement>,
+          _payload: { value: string }
+        ) => onChange(event)
+      : undefined
+
     return (
-      <input
-        type={type}
-        className={cn(
-          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-          className
-        )}
+      <AlfalabInput
         ref={ref}
-        {...props}
+        value={value !== undefined ? String(value) : undefined}
+        onChange={handleChange}
+        type={type as "text" | "email" | "password" | "tel" | "number" | undefined}
+        block
+        className={rootCls || undefined}
+        inputClassName={inputCls || undefined}
+        {...(rest as any)}
       />
     )
   }

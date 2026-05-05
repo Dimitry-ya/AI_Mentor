@@ -165,6 +165,19 @@ importers:
         version: 5.9.3
 
   artifacts/ai-mentor:
+    dependencies:
+      '@alfalab/core-components-button':
+        specifier: 13.1.1
+        version: 13.1.1(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-config':
+        specifier: 1.1.0
+        version: 1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-input':
+        specifier: 17.1.3
+        version: 17.1.3(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-textarea':
+        specifier: 10.0.4
+        version: 10.0.4(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@19.2.14)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@hookform/resolvers':
         specifier: ^3.10.0
@@ -645,6 +658,81 @@ importers:
 
 packages:
 
+  '@alfalab/core-components-button@13.1.1':
+    resolution: {integrity: sha512-jCRgMdM/6eHaySehV9/Jpi2fO8m2Ul/lACgQxQjrtOpPQCYdqJNhv9oqfZtaoLJbiyN2Q6RLY6AmC4lsMiJ2zA==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-config@1.1.0':
+    resolution: {integrity: sha512-KoVfkwPx6/vE2YXqo+nzxhOCoWuIttyCDZ8jkSFrAcVeRyeCfseyacT6TTHE/gRIRLyKhZYhqXsAGYfCj2YqUg==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-form-control@14.0.4':
+    resolution: {integrity: sha512-knFEQSsyJJ6qb1lUY8ocW7jZaCEdHWshJ6DI6XV+MpEDHWgeOMxi7w4QWENEwwexdszN1mWsEUN8/nrxo8CSKA==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-input@17.1.3':
+    resolution: {integrity: sha512-61hHcfsldrTHvWRu5tb5lW4OH5BmGZMgpcXd8mVSOKTfRyhK/M15R8yohQ/1Ww2c1nOoY0Hbui9aYxzlpc5FNw==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-mq@6.0.3':
+    resolution: {integrity: sha512-D/wKRQ2N4vAK7FJnZ956YJXIvpLhfBxDM8D+SwX+ViX5zulyaPkM2Llk3GMpHFigSwgCH+m8VYxKUHgpZdTYDA==}
+    peerDependencies:
+      '@alfalab/core-components-config': ^1.1.0
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-shared@2.1.1':
+    resolution: {integrity: sha512-yaL/E+xuQ78+2ZMQkZXcSYVOXq9fvltanrxAhbtME+QX4fEghTEwxEIDR5QJhx7l7tAAs4vdme0hBhgnkTGmbA==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-spinner@6.0.3':
+    resolution: {integrity: sha512-0He7CPRJwx/gzOT+JpW8jlEf0VI0xLDGj7gIlJbyOShxsnYAvICmKza5KNv5/3+5h+88+8ts658GYLGf6RDNZQ==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-status-badge@3.0.2':
+    resolution: {integrity: sha512-wjL8B7QQudkK3jUVV//YVEX1i7QQb7Y8fIJ5onz2ji84km9GQytalUHqqqiiZbCU3QQIZokqh6iW7oMXARgGTw==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-textarea@10.0.4':
+    resolution: {integrity: sha512-yp9JbzEeOeWzHsc6/R6NghvmQXMesxhnWkB/X4wg/hxaS2KrpxtCmCt29bJ2+kADjajQsFGS+PavjL8l93Mvpw==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/core-components-types@2.0.1':
+    resolution: {integrity: sha512-GVkWMPl8rgBNSDwEM7M41NnabcNhOoH2ejuWarDu8HnD3ZbqaXbE+CYl1Muwhz7FNo4VfrDJhSeJsF8qHopwNQ==}
+
+  '@alfalab/data@1.10.2':
+    resolution: {integrity: sha512-FnPw8O/E5UjGUMHxecSaRv0O4JH3tOxumgXpJk1dnYez3mUi6FpeHEdnOw7vbpV/bERffG0WTPUmvvl/1ISGmQ==}
+
+  '@alfalab/hooks@1.16.0':
+    resolution: {integrity: sha512-K3D3e/I2NTRSuC8XCxeTifsdbqowZ5F5UPAAFtVF2cPgCoUQVVgbqamYp2+LfRoA5zvtt8Ep4xvKlK+cg2jsGg==}
+    peerDependencies:
+      react: '>=16.14.0 || >= 17.0.2 || >= 18.0.0'
+
+  '@alfalab/icons-glyph@2.278.0':
+    resolution: {integrity: sha512-CGmcouFSY5tIInWZ4s6tfsVibHUWUxTV0pDXvOJdia982hwwhHv+I1NJ80I/NUSkhEMQhL+LF8k29No8ALiqvA==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.9.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
+  '@alfalab/utils@1.20.0':
+    resolution: {integrity: sha512-Sei1dN22D7bQhII+SJJvb43e5IPeK70+ebrWvsoIDs+XEIeUaXShgMtlegcEl65tiiJbIQUVBJL+YsBsffQMgQ==}
+
   '@babel/code-frame@7.29.0':
     resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
     engines: {node: '>=6.9.0'}
@@ -787,6 +875,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@maskito/core@1.9.0':
+    resolution: {integrity: sha512-WQIUrwkdIUg6PzAb4Apa0RjTPHB0EqZLc9/7kWCKVIixhkITRFXFg2BhiDVSRv0mIKVlAEJcOvvjHK5T3UaIig==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1804,6 +1895,9 @@ packages:
   class-variance-authority@0.7.1:
     resolution: {integrity: sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg==}
 
+  classnames@2.5.1:
+    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
+
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
@@ -1937,6 +2031,9 @@ packages:
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
+
+  detect-browser@5.3.0:
+    resolution: {integrity: sha512-53rsFbGdwMwlF7qvCt0ypLM5V5/Mbl0szB7GPN8y9NCcbknYOeVVXdrXEq+90IwAfrrzt6Hd+u2E2ntakICU8w==}
 
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
@@ -2732,6 +2829,9 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
+  react-merge-refs@1.1.0:
+    resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
+
   react-refresh@0.18.0:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
@@ -2777,6 +2877,12 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  react-textarea-autosize@8.5.9:
+    resolution: {integrity: sha512-U1DGlIQN5AwgjTyOEnI1oCcMuEr1pv1qOtklB2l4nyMGbHzWrI0eFsYK0zos2YWqAolJyG0IWJaqWmWj5ETh0A==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-transition-group@4.4.5:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
@@ -3057,6 +3163,33 @@ packages:
       '@types/react':
         optional: true
 
+  use-composed-ref@1.4.0:
+    resolution: {integrity: sha512-djviaxuOOh7wkj0paeO1Q/4wMZ8Zrnag5H6yBvzN7AKKe8beOaED9SF5/ByLqsku8NP4zQqsvM2u3ew/tJK8/w==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  use-isomorphic-layout-effect@1.2.1:
+    resolution: {integrity: sha512-tpZZ+EX0gaghDAiFR37hj5MgY6ZN55kLiPkJsKxBMZ6GZdOSPJXiOzPM984oPYZ5AnehYx5WQp1+ME8I/P/pRA==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  use-latest@1.3.0:
+    resolution: {integrity: sha512-mhg3xdm9NaM8q+gLT8KryJPnRFOz1/5XPBhmDEVZK1webPzDjrPk7f/mbpeLqTgB9msytYWANxgALOCJKnLvcQ==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
   use-sidecar@1.1.3:
     resolution: {integrity: sha512-Fedw0aZvkhynoPYlA5WXrMCAMm+nSWdZt6lzJQ7Ok8S6Q+VsHmHpRWndVRJ8Be0ZbkfPc5LRYH+5XrzXcEeLRQ==}
     engines: {node: '>=10'}
@@ -3074,6 +3207,11 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  uuid@8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+    hasBin: true
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -3168,6 +3306,127 @@ packages:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
 snapshots:
+
+  '@alfalab/core-components-button@13.1.1(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/core-components-mq': 6.0.3(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-shared': 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-spinner': 6.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/hooks': 1.16.0(react@19.1.0)
+      classnames: 2.5.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-merge-refs: 1.1.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@alfalab/core-components-config'
+
+  '@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      tslib: 2.8.1
+
+  '@alfalab/core-components-form-control@14.0.4(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/core-components-mq': 6.0.3(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-shared': 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      classnames: 2.5.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@alfalab/core-components-config'
+
+  '@alfalab/core-components-input@17.1.3(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/core-components-button': 13.1.1(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-form-control': 14.0.4(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-mq': 6.0.3(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-shared': 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-status-badge': 3.0.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/hooks': 1.16.0(react@19.1.0)
+      '@alfalab/icons-glyph': 2.278.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      classnames: 2.5.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-merge-refs: 1.1.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@alfalab/core-components-config'
+
+  '@alfalab/core-components-mq@6.0.3(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/core-components-config': 1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-shared': 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/hooks': 1.16.0(react@19.1.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      tslib: 2.8.1
+
+  '@alfalab/core-components-shared@2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/core-components-types': 2.0.1
+      '@alfalab/hooks': 1.16.0(react@19.1.0)
+      '@maskito/core': 1.9.0
+      classnames: 2.5.1
+      detect-browser: 5.3.0
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      tslib: 2.8.1
+
+  '@alfalab/core-components-spinner@6.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/core-components-shared': 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/hooks': 1.16.0(react@19.1.0)
+      classnames: 2.5.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      tslib: 2.8.1
+
+  '@alfalab/core-components-status-badge@3.0.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/icons-glyph': 2.278.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      classnames: 2.5.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      tslib: 2.8.1
+
+  '@alfalab/core-components-textarea@10.0.4(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@19.2.14)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@alfalab/core-components-form-control': 14.0.4(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-mq': 6.0.3(@alfalab/core-components-config@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/core-components-shared': 2.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@alfalab/hooks': 1.16.0(react@19.1.0)
+      classnames: 2.5.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-merge-refs: 1.1.0
+      react-textarea-autosize: 8.5.9(@types/react@19.2.14)(react@19.1.0)
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - '@alfalab/core-components-config'
+      - '@types/react'
+
+  '@alfalab/core-components-types@2.0.1': {}
+
+  '@alfalab/data@1.10.2': {}
+
+  '@alfalab/hooks@1.16.0(react@19.1.0)':
+    dependencies:
+      '@alfalab/utils': 1.20.0
+      react: 19.1.0
+      uuid: 8.3.2
+
+  '@alfalab/icons-glyph@2.278.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
+  '@alfalab/utils@1.20.0':
+    dependencies:
+      '@alfalab/data': 1.10.2
+      lodash: 4.17.23
 
   '@babel/code-frame@7.29.0':
     dependencies:
@@ -3341,6 +3600,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@maskito/core@1.9.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -4501,6 +4762,8 @@ snapshots:
     dependencies:
       clsx: 2.1.1
 
+  classnames@2.5.1: {}
+
   clsx@2.1.1: {}
 
   cmdk@1.1.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
@@ -4606,6 +4869,8 @@ snapshots:
   decimal.js-light@2.5.1: {}
 
   depd@2.0.0: {}
+
+  detect-browser@5.3.0: {}
 
   detect-libc@2.1.2: {}
 
@@ -5315,6 +5580,8 @@ snapshots:
 
   react-is@18.3.1: {}
 
+  react-merge-refs@1.1.0: {}
+
   react-refresh@0.18.0: {}
 
   react-remove-scroll-bar@2.3.8(@types/react@19.2.14)(react@19.1.0):
@@ -5356,6 +5623,15 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 19.2.14
+
+  react-textarea-autosize@8.5.9(@types/react@19.2.14)(react@19.1.0):
+    dependencies:
+      '@babel/runtime': 7.28.6
+      react: 19.1.0
+      use-composed-ref: 1.4.0(@types/react@19.2.14)(react@19.1.0)
+      use-latest: 1.3.0(@types/react@19.2.14)(react@19.1.0)
+    transitivePeerDependencies:
+      - '@types/react'
 
   react-transition-group@4.4.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -5614,6 +5890,25 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.14
 
+  use-composed-ref@1.4.0(@types/react@19.2.14)(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+    optionalDependencies:
+      '@types/react': 19.2.14
+
+  use-isomorphic-layout-effect@1.2.1(@types/react@19.2.14)(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+    optionalDependencies:
+      '@types/react': 19.2.14
+
+  use-latest@1.3.0(@types/react@19.2.14)(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      use-isomorphic-layout-effect: 1.2.1(@types/react@19.2.14)(react@19.1.0)
+    optionalDependencies:
+      '@types/react': 19.2.14
+
   use-sidecar@1.1.3(@types/react@19.2.14)(react@19.1.0):
     dependencies:
       detect-node-es: 1.1.0
@@ -5627,6 +5922,8 @@ snapshots:
       react: 19.1.0
 
   util-deprecate@1.0.2: {}
+
+  uuid@8.3.2: {}
 
   vary@1.1.2: {}
 

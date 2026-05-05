@@ -1,19 +1,32 @@
 import * as React from "react"
-
-import { cn } from "@/lib/utils"
+import { Textarea as AlfalabTextarea } from "@alfalab/core-components-textarea"
 
 const Textarea = React.forwardRef<
   HTMLTextAreaElement,
   React.ComponentProps<"textarea">
->(({ className, ...props }, ref) => {
+>(({ className, onChange, value, rows, ...rest }, ref) => {
+  const classes = (className ?? "").split(" ").filter(Boolean)
+  const rootCls = classes
+    .filter((c) => !/^(h-|min-h-|bg-|border|rounded|shadow|px-|py-|text-|ring|focus-)/.test(c))
+    .join(" ")
+
+  const handleChange = onChange
+    ? (
+        event: React.ChangeEvent<HTMLTextAreaElement>,
+        _payload: { value: string }
+      ) => onChange(event)
+    : undefined
+
   return (
-    <textarea
-      className={cn(
-        "flex min-h-[60px] w-full rounded-md border border-input px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-[#ffffff]",
-        className
-      )}
+    <AlfalabTextarea
       ref={ref}
-      {...props}
+      value={value !== undefined ? String(value) : undefined}
+      onChange={handleChange}
+      block
+      autosize={false}
+      minRows={rows ?? 3}
+      className={rootCls || undefined}
+      {...(rest as any)}
     />
   )
 })
