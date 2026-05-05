@@ -302,17 +302,21 @@ export default function BuilderPage() {
           <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => setLocation(`/preview/${id}`)}>
             <Eye className="w-4 h-4" /> Предпросмотр
           </Button>
-          <Button variant="secondary" size="sm" className="gap-1.5" onClick={() => setCheckOpen(true)}>
+          <Button variant="secondary" size="sm" onClick={() => setCheckOpen(true)}>
             <ShieldCheck className="w-4 h-4" />
-            Проверить
+            <span className="inline-flex items-center gap-1.5">
+              Проверить
             {report.errors.length > 0 && (
-              <span className="ml-1 inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-error text-white text-[11px] px-1">
+                <span className="inline-flex items-center justify-center min-w-[16px] h-4 rounded-full bg-error text-white text-[10px] px-1 leading-none">
                 {report.errors.length}
               </span>
             )}
+            </span>
           </Button>
-          <Button size="sm" className="gap-1.5" onClick={handlePublish}>
-            <Send className="w-4 h-4" /> Опубликовать
+          <Button size="sm" onClick={handlePublish}>
+            <span className="inline-flex items-center gap-1.5">
+              <Send className="w-4 h-4" /> Опубликовать
+            </span>
           </Button>
         </div>
       </div>

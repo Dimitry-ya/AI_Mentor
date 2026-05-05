@@ -1,0 +1,121 @@
+Previous button fix did not work.
+
+The Builder top action buttons still look wrong.
+
+Visible problem:
+- "Предпросмотр" is still a gray custom-looking button.
+- "Проверить 6" is still a gray custom-looking button.
+- "Опубликовать" is still dark/black and does not match the expected primary Core DS style.
+- Buttons still look like local custom buttons, not normalized Core DS buttons.
+- Icon/text/badge alignment is still not fully fixed.
+
+This is now a focused bugfix for ONLY these exact buttons.
+
+Do not fix typography.
+Do not fix selects.
+Do not fix sidebar.
+Do not fix cards.
+Do not fix modals.
+Do not fix inputs.
+Do not run broad UI stabilization.
+
+Find the exact component that renders:
+- "Предпросмотр"
+- "Проверить"
+- "Опубликовать"
+
+Search:
+rg "Предпросмотр|Проверить|Опубликовать" artifacts/ai-mentor/src
+
+Then inspect:
+1. The exact action bar file.
+2. artifacts/ai-mentor/src/components/ui/button.tsx
+3. Any local CSS/classes used by these buttons.
+
+Main goal:
+These three buttons must render as real Core DS Button components through the shared Button wrapper or direct @alfalab/core-components-button usage.
+
+Important:
+Do not only rename variant="accent" to variant="primary".
+First verify how variant="primary" is mapped inside button.tsx.
+If primary still renders as black/dark or wrong style, fix the wrapper mapping.
+
+Expected hierarchy:
+1. "Опубликовать" = primary CTA.
+   It must use the correct Core DS primary/main action visual style.
+   It must NOT be destructive.
+   It must NOT use black/dark custom styling if that is not the intended primary style.
+   It must NOT use variant="accent".
+
+2. "Предпросмотр" = secondary action.
+   It should use Core DS secondary/outlined style.
+
+3. "Проверить" = secondary action with counter.
+   It should use Core DS secondary/outlined style.
+   Counter "6" must be compact and vertically centered.
+
+Required investigation:
+1. Check whether these buttons use "@/components/ui/button".
+2. Check whether they use native <button>.
+3. Check whether they use custom className styles.
+4. Check whether className overrides Core DS Button visual styles.
+5. Check whether the shared Button wrapper maps variants incorrectly.
+6. Check whether "primary" and "accent" are visually different.
+7. Check whether "accent" is still used on these buttons.
+
+Required fix:
+1. Remove visual Tailwind overrides from these buttons:
+   - bg-*
+   - border-*
+   - rounded-*
+   - h-*
+   - px-*
+   - py-*
+   - text-* if it overrides Core DS button text
+   - shadow
+   - ring
+   - focus:ring
+
+2. Keep only layout wrappers if needed:
+   - flex
+   - items-center
+   - gap
+   - justify-end
+
+3. Use Core DS Button visual props/views/sizes instead of custom classes.
+
+4. Normalize icon size:
+   - all icons inside these buttons must have the same size;
+   - icons must be vertically centered;
+   - icons must not affect button height.
+
+5. Normalize badge/counter:
+   - "6" must be small, centered and not stretch the button;
+   - do not use a large red circle that breaks alignment;
+   - if using local badge, make it inline-flex and compact.
+
+Acceptance criteria:
+1. These three buttons are equal height.
+2. Icons and text are vertically centered.
+3. "Проверить 6" counter is centered and compact.
+4. "Опубликовать" is primary, not accent, not destructive, not custom black.
+5. "Предпросмотр" and "Проверить" are secondary/outlined.
+6. No custom visual Tailwind classes remain on these buttons.
+7. Button wrapper maps primary/accent correctly.
+8. No unrelated UI changed.
+
+After the fix run:
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Final report must include:
+1. Exact file where these buttons are rendered.
+2. Whether they used the shared Button wrapper before.
+3. Which custom classes were removed.
+4. How primary/secondary/accent are mapped in button.tsx now.
+5. Whether "Опубликовать" still uses accent anywhere.
+6. Whether typecheck passed.
+7. Whether build passed.
+
+Stop after fixing only these three buttons.

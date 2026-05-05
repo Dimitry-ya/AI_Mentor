@@ -51,6 +51,7 @@ const VARIANT_TO_VIEW: Record<
   secondary: "secondary",
   ghost: "transparent",
   link: "text",
+  accent: "primary",
 }
 
 const SIZE_TO_NUM: Record<string, 32 | 40 | 48 | 56 | 64 | 72> = {
