@@ -1,0 +1,110 @@
+Good. The project is clean, up to date with GitHub, and the app installs, typechecks, builds, and runs in Replit.
+
+Continue Core DS migration with the next small phase.
+
+Important context:
+Button/Input/Textarea wrappers were already migrated and stabilized earlier.
+Do not rewrite them from scratch in this phase.
+But include them in regression checks, because they are core controls used across the app.
+
+Goal:
+Migrate only Select, Tabs, and Badge/Tag compatibility wrappers to Core DS, while making sure Button/Input/Textarea still work correctly.
+
+Work mainly inside:
+artifacts/ai-mentor/src/components/ui/
+
+Files to inspect:
+1. button.tsx
+2. input.tsx
+3. textarea.tsx
+4. select.tsx
+5. tabs.tsx
+6. badge.tsx
+
+Files to migrate in this phase:
+1. select.tsx
+2. tabs.tsx
+3. badge.tsx
+
+Files to regression-check only:
+1. button.tsx
+2. input.tsx
+3. textarea.tsx
+
+Important:
+1. Do not redesign screens.
+2. Do not change pages directly unless absolutely required.
+3. Do not change routes.
+4. Do not change business logic.
+5. Do not change localStorage key ai-mentor:v1.
+6. Do not remove seed data.
+7. Do not touch backend/lib.
+8. Keep old imports working.
+9. Preserve the public API of existing local components where possible.
+10. If Core DS API differs from shadcn/Radix API, create compatibility adapters.
+11. Do not migrate dialog.tsx, drawer.tsx, sheet.tsx or table.tsx in this phase.
+12. Stop after Select, Tabs and Badge/Tag are stable.
+
+Before changing:
+1. Search where select.tsx components are used.
+2. Search where tabs.tsx components are used.
+3. Search where badge.tsx is used.
+4. Search where button.tsx, input.tsx and textarea.tsx are used.
+5. Identify which props and subcomponents are actually used.
+6. Do not support unused API surface unless it is trivial.
+
+Migration target:
+- select.tsx → Core DS Select
+- tabs.tsx → Core DS Tabs
+- badge.tsx → Core DS Tag, Badge or StatusBadge, whichever matches usage best
+
+Regression check for Button/Input/Textarea:
+Check that existing Core DS wrappers still support:
+- disabled state
+- hover/focus state
+- error state where applicable
+- placeholder
+- value/defaultValue
+- onChange
+- className where still needed
+- variant adapters for Button
+- size adapters for Button
+
+Visual expectations:
+1. Buttons must clearly communicate primary/secondary/disabled states.
+2. Inputs must clearly show normal, focus, disabled and error states.
+3. Textarea must preserve form behavior and not break layout.
+4. Select, Tabs and Badge/Tag must visually align with Core DS.
+5. Do not add random Tailwind colors, shadows or radii.
+6. Avoid excessive visual accents.
+
+After each migrated wrapper, run:
+
+pnpm --filter @workspace/ai-mentor run typecheck
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run build
+
+After all three are migrated, run:
+
+PORT=8080 BASE_PATH=/ pnpm --filter @workspace/ai-mentor run dev
+
+Then visually check:
+1. Catalog filters
+2. Builder forms
+3. Builder tabs/steps if used
+4. Status badges
+5. Empty/error/loading states if affected
+6. Any screens using Button/Input/Textarea
+
+At the end, report:
+1. Which files changed
+2. Which Core DS components were used
+3. How old props were mapped
+4. Which props are unsupported
+5. Whether Button/Input/Textarea still work
+6. Whether typecheck passed
+7. Whether ai-mentor build passed
+8. Whether dev workflow starts
+9. What visual risks remain
+10. Recommended next phase
+
+Stop after this phase.
