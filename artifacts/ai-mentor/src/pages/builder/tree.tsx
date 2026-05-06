@@ -222,7 +222,8 @@ function Row({
     >
       <span className={`text-[hsl(var(--ink-muted))] ${active ? "text-primary" : ""}`}>{icon}</span>
       <span className={`flex-1 truncate ${active ? "font-medium" : ""}`}>{label}</span>
-      {hasError && <span className="am-dot am-dot-error" title="В блоке есть ошибки" />}
+      {hasError && indent === 0 && <span className="am-dot am-dot-error" title="В блоке есть ошибки" />}
+      {hasError && indent > 0 && <span className="am-dot am-dot-warning" title="В блоке есть ошибки" />}
       {typeof count === "number" && (
         <span className="text-[11px] text-[hsl(var(--ink-muted))]">{count}</span>
       )}
@@ -275,7 +276,8 @@ function Group({
         </button>
         <span className={`text-[hsl(var(--ink-muted))] ${active ? "text-primary" : ""}`}>{icon}</span>
         <span className={`flex-1 truncate ${active ? "font-medium" : ""}`}>{label}</span>
-        {hasError && <span className="am-dot am-dot-error" title="В блоке есть ошибки" />}
+        {hasError && indent === 0 && <span className="am-dot am-dot-error" title="В блоке есть ошибки" />}
+        {hasError && indent > 0 && <span className="am-dot am-dot-warning" title="В блоке есть ошибки" />}
         {typeof count === "number" && (
           <span className="text-[11px] text-[hsl(var(--ink-muted))]">{count}</span>
         )}
